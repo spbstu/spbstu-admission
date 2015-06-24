@@ -3,4 +3,4 @@
 .meteor/local
 .meteor/meteorite
 
-
+deploy/*

@@ -1,23 +1,39 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+AccountsTemplates.configure({
+    showForgotPasswordLink: true,
+    texts: {
+        button: {
+            signUp: "Register Now!"
+        },
+        socialSignUp: "Register",
+        socialIcons: {
+            "meteor-developer": "fa fa-rocket"
+        },
+        title: {
+            forgotPwd: "Recover Your Password"
+        }
     }
-  });
+});
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
-}
+AccountsTemplates.configureRoute('signIn');
+
+Router.plugin('ensureSignedIn', {
+    only: ['backstage', 'backstage/upload']
+});
+
+Router.configure({
+    layoutTemplate: 'MainLayout'
+});
+
+Router.route('/', function () {
+    this.render('spbstu-admission');
+});
+
+Router.route('/backstage/upload', {
+    template: 'BackstageUpload'
+});
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
+    Meteor.startup(function () {
+        // code to run on server at startup
+    });
 }

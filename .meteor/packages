@@ -9,3 +9,10 @@ autopublish
 insecure
 accounts-ui
 accounts-password
+materialize:materialize
+useraccounts:core
+useraccounts:materialize
+iron:router
+erasaur:meteor-lodash
+wilddeer:stylus-autoprefixer
+harrison:papa-parse

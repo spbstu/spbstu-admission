@@ -1,0 +1,20 @@
+<template name="MainLayout">
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">CПбПУ, приёмная комиссия</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {{atNav}}
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <div class="divider"></div>
+    <div id="main" class="row">
+        {{> yield}}
+    </div>
+</div>
+</template>
