@@ -4,3 +4,4 @@
 .meteor/meteorite
 
 deploy/*
+docs/*
