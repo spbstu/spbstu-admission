@@ -27,13 +27,10 @@ Template.BackstageUpload.events({
                     });
 
                 if (result.errors.length === 0) {
-                    Groups.insert(data, function(err, id) {
-                        var $input = $(input);
-
-                        if (! err) {
-                            $input.replaceWith($input.val('').clone(true));
-                        }
-                    })
+                    // TODO: Обработка ошибок. Наверно что-то типа промисов
+                    data.forEach(function(item) {
+                        Groups.insert(item);
+                    });
                 }
             }
         });
