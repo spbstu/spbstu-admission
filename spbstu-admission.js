@@ -16,22 +16,6 @@ AccountsTemplates.configure({
 
 AccountsTemplates.configureRoute('signIn');
 
-Router.plugin('ensureSignedIn', {
-    only: ['backstage', 'backstage/upload']
-});
-
-Router.configure({
-    layoutTemplate: 'MainLayout'
-});
-
-Router.route('/', function () {
-    this.render('spbstu-admission');
-});
-
-Router.route('/backstage/upload', {
-    template: 'BackstageUpload'
-});
-
 if (Meteor.isServer) {
     Meteor.startup(function () {
         // code to run on server at startup
