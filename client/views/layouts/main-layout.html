@@ -1,19 +1,81 @@
 <template name="MainLayout">
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">CПбПУ, приёмная комиссия</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                {{atNav}}
-            </ul>
-        </div>
-    </nav>
-</div>
-
-<div class="container">
-
-    <div id="main" class="row">
-        {{> yield}}
+<header>
+    <div class="navbar-fixed">
+        <nav class="top-nav">
+            <div class="container">
+                <a href="/" class="brand-logo">{{> yield "title"}}</a>
+            </div>
+        </nav>
     </div>
-</div>
+
+    <ul id="nav-mobile" class="side-nav fixed" style="width: 240px;">
+        <li class="logo"><a id="logo-container" href="/" class="brand-logo"></a></li>
+
+        <li class="row">
+            <div class="input-field col s12">
+                <select>
+                    <option value="" disabled>Выберите</option>
+                    <option value="1" selected>Очная</option>
+                    <option value="2">Заочная</option>
+                </select>
+                <label>Форма обучения</label>
+            </div>
+        </li>
+        <li class="row">
+            <div class="input-field col s12">
+                <select>
+                    <option value="" selected>Выберите</option>
+                    <option value="1" selected>Бюджет</option>
+                    <option value="2">Контракт</option>
+                </select>
+                <label>Бюджет/контракт</label>
+            </div>
+        </li>
+        <li class="row">
+            <div class="input-field col s12">
+                <select>
+                    <option value="" selected>Выберите</option>
+                    <option value="1">Магистратура</option>
+                    <option value="2">Специалитет</option>
+                    <option value="3" selected>Академический бакалавриат</option>
+                    <option value="4">Аспирантура</option>
+                </select>
+                <label>Программа</label>
+            </div>
+        </li>
+        <li class="row">
+            <div class="input-field col s12">
+                <select>
+                    <option value="" selected>Выберите</option>
+                    <option value="1" selected>среднее общее</option>
+                    <option value="2">высшее</option>
+                    <option value="3">среднее профессиональное</option>
+                </select>
+                <label>Базовое образование</label>
+            </div>
+        </li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+
+        <div id="main" class="row">
+            {{> yield}}
+        </div>
+    </div>
+</main>
+
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <p class="grey-text text-lighten-4">Информация обновляется один раз в сутки</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">2015 СПбПУ, Приёмная комиссия</div>
+    </div>
+</footer>
 </template>
