@@ -1,5 +1,5 @@
 Template.BackstageUpload.events({
-    'change #input': function(event) {
+    'change #groups': function(event) {
         var input = event.target,
             file = event.target.files[0];
 
@@ -31,6 +31,56 @@ Template.BackstageUpload.events({
                     data.forEach(function(item) {
                         Groups.insert(item);
                     });
+                }
+            }
+        });
+    },
+
+    'change #counters': function(event) {
+        var input = event.target,
+            file = event.target.files[0];
+
+        if (! file) {
+            return;
+        }
+
+        var result = Papa.parse(file, {
+            skipEmptyLines: true,
+            complete: function(result) {
+                var data = result.data
+                    .slice(1)
+                    .map(function(item) {
+                        return {
+                            groupId: item[0],               // UID группы
+                            planned: item[2],               // План
+                            applicationsCount: item[3],     // Подано заявления
+                            docsCount: item[4]              // Подано документов
+                        }
+                    });
+
+                if (result.errors.length === 0) {
+                    // TODO: Обработка ошибок. Наверно что-то типа промисов
+                    data.forEach(function(item) {
+                        var doc = Groups.findOne({
+                            groupId: item.groupId
+                        });
+
+                        Groups.update({
+                            _id: doc._id
+                        }, {
+                            $set: {
+                                planned: item.planned,
+                                applicationsCount: item.applicationsCount,
+                                docsCount: item.docsCount
+                            }
+                        }, function(err, affected) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                    });
+                } else {
+                    console.log(result.errors);
                 }
             }
         });

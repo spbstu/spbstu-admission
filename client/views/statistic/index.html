@@ -14,9 +14,9 @@
     <tr>
         <th>{{faculty}}</th>
         <td>{{title}}</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
+        <td>{{planned}}</td>
+        <td><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
+        <td>{{docsCount}}</td>
     </tr>
     {{/each}}
     </tbody>

@@ -1,3 +1,25 @@
 <template name="BackstageUpload">
-    <input type="file" id="input">
+<h2>Загрузка файлов</h2>
+
+<form action="#">
+    <div class="file-field input-field">
+        <div class="btn">
+            <span>Конкурсные группы</span>
+            <input type="file" id="groups" />
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+
+    <div class="file-field input-field">
+        <div class="btn">
+            <span>Контрольные цифры</span>
+            <input type="file" id="counters" />
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+        </div>
+    </div>
+</form>
 </template>
