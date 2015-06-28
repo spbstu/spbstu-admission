@@ -18,6 +18,7 @@ Template.BackstageUpload.events({
                             title: item[1],             // Название группы
                             groupId: item[2],           // UID группы
                             educationForm: item[3],     // Форма обучения
+                            // Todo: Переимевать
                             programm: item[4],          // Программа
                             paymentForm: item[5],       // Бюджет/контракт
                             educationLevel: item[6],    // Базовое образование

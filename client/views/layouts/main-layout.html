@@ -2,8 +2,10 @@
 <header>
     <div class="navbar-fixed">
         <nav class="top-nav">
-            <div class="container">
-                <a href="/" class="brand-logo">{{> yield "title"}}</a>
+            <div class="row">
+                <h5 class="col s10 offset-s1">
+                    <a href="/" class="">{{> yield "title"}}</a>
+                </h5>
             </div>
         </nav>
     </div>
@@ -13,58 +15,13 @@
             <a id="logo-container" href="/" class="brand-logo"><img src="/logo.svg" class="spbstu-logo" alt=""/></a>
         </li>
 
-        <li class="row">
-            <div class="input-field col s12">
-                <select>
-                    <option value="" disabled>Выберите</option>
-                    <option value="1" selected>Очная</option>
-                    <option value="2">Заочная</option>
-                </select>
-                <label>Форма обучения</label>
-            </div>
-        </li>
-        <li class="row">
-            <div class="input-field col s12">
-                <select>
-                    <option value="" selected>Выберите</option>
-                    <option value="1" selected>Бюджет</option>
-                    <option value="2">Контракт</option>
-                </select>
-                <label>Бюджет/контракт</label>
-            </div>
-        </li>
-        <li class="row">
-            <div class="input-field col s12">
-                <select>
-                    <option value="" selected>Выберите</option>
-                    <option value="1">Магистратура</option>
-                    <option value="2">Специалитет</option>
-                    <option value="3" selected>Академический бакалавриат</option>
-                    <option value="4">Аспирантура</option>
-                </select>
-                <label>Программа</label>
-            </div>
-        </li>
-        <li class="row">
-            <div class="input-field col s12">
-                <select>
-                    <option value="" selected>Выберите</option>
-                    <option value="1" selected>среднее общее</option>
-                    <option value="2">высшее</option>
-                    <option value="3">среднее профессиональное</option>
-                </select>
-                <label>Базовое образование</label>
-            </div>
-        </li>
+        {{> Navigation }}
     </ul>
 </header>
 
 <main>
-    <div class="container">
-
-        <div id="main" class="row">
-            {{> yield}}
-        </div>
+    <div id="main" class="row">
+        {{> yield}}
     </div>
 </main>
 

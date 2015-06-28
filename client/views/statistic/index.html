@@ -1,5 +1,5 @@
 <template name="Statistic">
-<table>
+<table class="data-table col s10 offset-s1">
     <thead>
     <tr>
         <th data-field="faculty">Иститут</th>
@@ -10,17 +10,21 @@
     </tr>
     </thead>
     <tbody>
-    {{#each groups}}
-    <tr>
+    {{#each rows}}
+    <tr class="{{#if isFirst}}first{{/if}}" >
         <th>{{faculty}}</th>
         <td>{{title}}</td>
-        <td>{{planned}}</td>
-        <td><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
-        <td>{{docsCount}}</td>
+        <td class="table-int">{{planned}}</td>
+        <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
+        <td class="table-int">{{docsCount}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="5">Записей не найдено</td>
     </tr>
     {{/each}}
     </tbody>
 </table>
 
-    {{#contentFor "title"}}{{ educationForm }}, {{ paymentForm }}{{/contentFor}}
+    {{#contentFor "title"}}Статистика принятых заявлений{{/contentFor}}
 </template>
