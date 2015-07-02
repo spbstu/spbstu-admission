@@ -16,3 +16,5 @@ iron:router
 erasaur:meteor-lodash
 wilddeer:stylus-autoprefixer
 harrison:papa-parse
+cfs:standard-packages
+cfs:filesystem

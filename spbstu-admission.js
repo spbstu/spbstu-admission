@@ -18,6 +18,7 @@ AccountsTemplates.configureRoute('signIn');
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
-        // code to run on server at startup
+        fs = Npm.require('fs');
+        path = Npm.require('path');
     });
 }
