@@ -3,7 +3,7 @@ Session.setDefault('groupsQuery', {});
 Template.Statistic.helpers({
     rows: function() {
         var filter = Session.get('groupsQuery'),
-            groups = Groups.find(filter),
+            groups = Groups.find(filter, {sort: {faculty: 1, title: 1}}),
             prevFaculty = '';
 
         return groups
