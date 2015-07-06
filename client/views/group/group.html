@@ -1,0 +1,30 @@
+<template name="Group">
+    <table class="data-table col s10 offset-s1">
+        <thead>
+        <tr>
+            <th data-field="faculty">Фамилия</th>
+            <th data-field="title">Имя</th>
+            <th data-field="planned">Отчество</th>
+            <th data-field="applicationsCount">Форма конкурса</th>
+            <th data-field="docsCount">Тип документа</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each persons}}
+        <tr class="{{#if isFirst}}first{{/if}}" >
+            <th>{{lastName}}</th>
+            <td>{{firstName}}</td>
+            <td>{{patronimusName}}</td>
+            <td>{{contestForm}}</td>
+            <td>{{documentType}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="5">Записей не найдено</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    {{#contentFor "title"}}Статистика для направления{{/contentFor}}
+</template>

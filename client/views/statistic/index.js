@@ -20,3 +20,12 @@ Template.Statistic.helpers({
         });
     }
 });
+
+Template.Statistic.events({
+    'click .data-row': function(e) {
+        var groupId = e.currentTarget.dataset['groupid'];
+
+        Router.go('group', {groupId: groupId});
+        return false;
+    }
+});

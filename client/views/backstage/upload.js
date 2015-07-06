@@ -23,5 +23,18 @@ Template.BackstageUpload.events({
 
             }
         });
+    },
+
+    'change #abiturients': function(event) {
+        var input = event.target,
+            file = event.target.files[0];
+
+        AbiturientsFiles.insert(file, function(err, fileObj) {
+            if (err) {
+                console.log('Upload error:', err);
+            } else {
+
+            }
+        });
     }
 });

@@ -11,7 +11,7 @@
     </thead>
     <tbody>
     {{#each rows}}
-    <tr class="{{#if isFirst}}first{{/if}}" >
+    <tr class="{{#if isFirst}}first{{/if}} data-row" data-groupid="{{groupId}}">
         <th>{{faculty}}</th>
         <td>{{title}}</td>
         <td class="table-int">{{planned}}</td>
