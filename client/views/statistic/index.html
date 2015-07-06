@@ -1,29 +1,30 @@
 <template name="Statistic">
 <table class="data-table col s10 offset-s1">
-    <thead>
-    <tr>
-        <th data-field="faculty">Иститут</th>
-        <th data-field="title">Направление</th>
-        <th data-field="planned">План</th>
-        <th data-field="applicationsCount">Заявлений</th>
-        <th data-field="docsCount">Оригиналов</th>
-    </tr>
-    </thead>
-    <tbody>
     {{#each rows}}
-    <tr class="{{#if isFirst}}first{{/if}} data-row" data-groupid="{{groupId}}">
-        <th>{{faculty}}</th>
-        <td>{{title}}</td>
-        <td class="table-int">{{planned}}</td>
-        <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
-        <td class="table-int">{{docsCount}}</td>
-    </tr>
+        {{#if isFirst}}
+        <thead>
+            <tr>
+                <th colspan="4"><h5 class="center-align faculty-name">{{faculty}}</h5></th>
+            </tr>
+            <tr>
+                <th data-field="title">Направление</th>
+                <th data-field="planned">План</th>
+                <th data-field="applicationsCount">Заявлений</th>
+                <th data-field="docsCount">Оригиналов</th>
+            </tr>
+        </thead>
+        {{/if}}
+        <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
+            <td>{{title}}</td>
+            <td class="table-int">{{planned}}</td>
+            <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
+            <td class="table-int">{{docsCount}}</td>
+        </tr>
     {{else}}
     <tr>
         <td colspan="5">Записей не найдено</td>
     </tr>
     {{/each}}
-    </tbody>
 </table>
 
     {{#contentFor "title"}}Статистика принятых заявлений{{/contentFor}}
