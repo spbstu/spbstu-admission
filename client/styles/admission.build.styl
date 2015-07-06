@@ -1,5 +1,31 @@
-header, main, footer
-  padding-left 240px
+$sideNavWidth = 240px
+$innerPageOffset = 20px
+
+header
+main
+footer
+  transition padding-left .5s
+  padding-left $sideNavWidth
+
+  .inner-page &
+    padding-left $innerPageOffset
+
+.side-nav
+  width $sideNavWidth
+  transition left .5s
+
+  .inner-page &
+    left - (@width - $innerPageOffset)
+
+.back-btn
+  position fixed
+  left 40px
+  top -55px
+  z-index 999
+  transition top .5s .5s
+
+  .inner-page &
+    top 35px
 
 .warn
   padding 3px 5px

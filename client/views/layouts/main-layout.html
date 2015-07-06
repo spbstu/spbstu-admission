@@ -1,5 +1,11 @@
 <template name="MainLayout">
 <header>
+    <div class="back-btn">
+        <a class="btn-floating btn-large red darken-2">
+            <i class="large material-icons">arrow_back</i>
+        </a>
+    </div>
+
     <div class="navbar-fixed">
         <nav class="top-nav">
             <div class="row">
@@ -8,9 +14,9 @@
         </nav>
     </div>
 
-    <ul id="nav-mobile" class="side-nav fixed" style="width: 240px;">
+    <ul class="side-nav fixed">
         <li class="logo">
-            <a id="logo-container" href="/" class="brand-logo"><img src="/logo.svg" class="spbstu-logo" alt=""/></a>
+            <span id="logo-container" class="brand-logo"><img src="/logo.svg" class="spbstu-logo" alt=""/></span>
         </li>
 
         {{> Navigation }}
