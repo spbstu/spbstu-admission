@@ -1,3 +1,19 @@
+function storedHandlerFactory(collectionName) {
+    /**
+     * Приходится нафигачить фабрику, потому что FS.Collection файрит событие 'stored' на все коллекции
+     * и просто `storedHandler` вызывался трижды
+     */
+
+    return function(fileObj, storeName) {
+        if (fileObj.collectionName !== collectionName) {
+            return;
+        }
+
+        storedHandler.apply(this, arguments);
+    }
+}
+
+
 function storedHandler(fileObj, storeName) {
     var readStream = fileObj.createReadStream('data'),
         data = '';
@@ -137,6 +153,6 @@ function processAbiturients(data) {
     });
 }
 
-GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandler));
-CountersFiles.on('stored', Meteor.bindEnvironment(storedHandler));
-AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandler));
+GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));
+CountersFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('countersFiles')));
+AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('abiturientsFiles')));
