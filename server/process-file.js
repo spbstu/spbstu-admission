@@ -55,7 +55,9 @@ function processGroups(data) {
                     paymentForm: item[ 5 ],       // Бюджет/контракт
                     educationLevel: item[ 6 ],    // Базовое образование
                     admissionLevel: item[ 7 ],    // Приёмная кампания
-                    exams: item[ 8 ]              // Экзамены
+                    exams: item[ 8 ],             // Экзамены
+                    limit: item[ 9 ],             // Проходной балл
+                    semilimit: item[ 10 ]         // Полупроходной балл
                 }
             })
             .forEach(function (item) {
@@ -87,11 +89,7 @@ function processCounters(data) {
                 Groups.update({
                     groupId: item.groupId
                 }, {
-                    $set: {
-                        planned: item.planned,
-                        applicationsCount: item.applicationsCount,
-                        docsCount: item.docsCount
-                    }
+                    $set: item
                 }, function (err, affected) {
                     if (err) {
                         console.log(err);
@@ -115,12 +113,17 @@ function processAbiturients(data) {
             .slice(1)
             .map(function (item) {
                 return {
+                    order: item[ 0 ],                  // Номер по порядку внутри группы
+                    faculty: item[ 1 ],                // Факультет
                     groupId: item[ 2 ],                // UID группы
+                    groupName: item[ 3 ],              // Название конкурсной группы
                     contestForm: item[ 4 ],            // Форма конкурса
                     lastName: item[ 5 ],               // Фамилия
                     firstName: item[ 6 ],              // Имя
                     patronimusName: item[ 7 ],         // Отчество
                     abiturientUid: item[ 8 ],          // UID абитуриента
+                    gender: item[ 9 ],                 // Пол
+                    birthDate: item[ 10 ],             // Дата рождения
                     priority: item[ 11 ],              // Приоритет
                     documentType: item[ 12 ],          // Тип документа
                     totalScore: item[ 13 ],            // Общий балл
