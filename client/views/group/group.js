@@ -3,7 +3,7 @@ Template.Group.helpers({
         var controller = Iron.controller(),
             params = controller.getParams();
 
-        return Abiturients.find({ groupId: params.groupId });
+        return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
     },
 
     group: function() {
