@@ -8,6 +8,9 @@
             </tr>
             <tr>
                 <th data-field="title">Направление</th>
+                <th data-field="title">Форма обучения</th>
+                <th data-field="title">Бюджет/Контракт</th>
+                <th data-field="title">Базовое образование</th>
                 <th data-field="planned">План</th>
                 <th data-field="applicationsCount">Заявлений</th>
                 <th data-field="docsCount">Оригиналов</th>
@@ -16,13 +19,16 @@
         {{/if}}
         <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
             <td>{{title}}</td>
+            <td>{{educationForm}}</td>
+            <td>{{paymentForm}}</td>
+            <td>{{educationLevel}}</td>
             <td class="table-int">{{planned}}</td>
             <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
             <td class="table-int">{{docsCount}}</td>
         </tr>
     {{else}}
     <tr>
-        <td colspan="5">Записей не найдено</td>
+        <td colspan="7">Записей не найдено</td>
     </tr>
     {{/each}}
 </table>

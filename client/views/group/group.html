@@ -2,21 +2,21 @@
     <table class="data-table col s10 offset-s1">
         <thead>
         <tr>
-            <th data-field="faculty">Фамилия</th>
-            <th data-field="title">Имя</th>
-            <th data-field="planned">Отчество</th>
-            <th data-field="applicationsCount">Форма конкурса</th>
+            <th data-field="num">№</th>
+            <th data-field="faculty">Фамилия Имя Отчество</th>
+            <th data-field="docsCount">Приоритет</th>
             <th data-field="docsCount">Тип документа</th>
+            <th data-field="applicationsCount">Форма конкурса</th>
         </tr>
         </thead>
         <tbody>
         {{#each persons}}
         <tr class="{{#if isFirst}}first{{/if}}" >
-            <th>{{lastName}}</th>
-            <td>{{firstName}}</td>
-            <td>{{patronimusName}}</td>
-            <td>{{contestForm}}</td>
+            <th>{{order}}</th>
+            <th>{{lastName}} {{firstName}} {{patronimusName}}</th>
+            <td>{{priority}}</td>
             <td>{{documentType}}</td>
+            <td>{{contestForm}}</td>
         </tr>
         {{else}}
         <tr>
