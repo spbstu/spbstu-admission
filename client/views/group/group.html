@@ -26,5 +26,10 @@
         </tbody>
     </table>
 
-    {{#contentFor "title"}}<h6 class="group-title">{{group.faculty}}<br>{{group.title}}</h6>{{/contentFor}}
+    {{#contentFor "title"}}
+    <h6 class="group-title">
+        {{group.faculty}}, {{group.title}}<br>
+        {{group.educationForm}}, {{group.paymentForm}}
+    </h6>
+    {{/contentFor}}
 </template>
