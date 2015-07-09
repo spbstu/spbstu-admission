@@ -79,10 +79,10 @@ function processCounters(data) {
             .slice(1)
             .map(function (item) {
                 return {
-                    groupId: item[ 0 ],               // UID группы
-                    planned: item[ 2 ],               // План
-                    applicationsCount: item[ 3 ],     // Подано заявления
-                    docsCount: item[ 4 ]              // Подано документов
+                    groupId: item[ 0 ],                         // UID группы
+                    planned: parseInt(item[ 2 ], 10),           // План
+                    applicationsCount: parseInt(item[ 3 ]),     // Подано заявления
+                    docsCount: parseInt(item[ 4 ])              // Подано документов
                 }
             })
             .forEach(function (item) {
@@ -113,7 +113,7 @@ function processAbiturients(data) {
             .slice(1)
             .map(function (item) {
                 return {
-                    order: item[ 0 ],                  // Номер по порядку внутри группы
+                    order: parseInt(item[ 0 ]),        // Номер по порядку внутри группы
                     faculty: item[ 1 ],                // Факультет
                     groupId: item[ 2 ],                // UID группы
                     groupName: item[ 3 ],              // Название конкурсной группы
