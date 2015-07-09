@@ -47,6 +47,20 @@ footer
   margin-top 1rem
   margin-left 7.333%
 
+.title-wrapper
+  box-sizing border-box
+  width 50%
+  padding-left 60px
+
+.navbar-fixed nav
+  width auto
+  right 0
+  left $sideNavWidth
+  transition left .3s
+  
+  .inner-page &
+    left 0
+
 tr.first
   border-top solid 1px #999
 
@@ -63,4 +77,3 @@ th[data-field='faculty']
 
   &:hover
     color #000 !important
-    background #81d4fa !important

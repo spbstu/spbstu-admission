@@ -1,8 +1,9 @@
 Session.setDefault('groupsQuery', {});
+Session.setDefault('campanyQuery', 'Основной прием');
 
 Template.Statistic.helpers({
     rows: function() {
-        var filter = Session.get('groupsQuery'),
+        var filter = _.extend(Session.get('groupsQuery'), {admissionLevel: Session.get('campanyQuery')}),
             groups = Groups.find(filter, {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}}),
             prevFaculty = '';
 
