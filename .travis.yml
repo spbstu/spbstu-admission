@@ -4,6 +4,7 @@ node_js:
   - "0.12"
 before_install:
   - "curl -L http://git.io/ejPSng | /bin/sh"
+services: mongodb
 before_deploy:
   - "meteor build ."
 deploy:
