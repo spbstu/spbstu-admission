@@ -1,0 +1,22 @@
+{
+  "name": "spbstu-admission",
+  "version": "0.1.1",
+  "description": "Application for show admission process",
+  "main": "spbstu-admission.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Nothing to test\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/h4/spbstu-admission.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h4/spbstu-admission/issues"
+  },
+  "homepage": "https://github.com/h4/spbstu-admission"
+}
