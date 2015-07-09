@@ -5,7 +5,7 @@ node_js:
 before_install:
   - "curl -L http://git.io/ejPSng | /bin/sh"
 before_deploy:
-  script: meteor build .
+  - "meteor build ."
 deploy:
   provider: releases
   api_key:
