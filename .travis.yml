@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "0.12"
 before_install:
-  - "lsb_release -a"
+  - "uname -m"
   - "curl https://install.meteor.com | /bin/sh"
 services: mongodb
 before_deploy:
