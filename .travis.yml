@@ -6,7 +6,7 @@ before_install:
   - "curl https://install.meteor.com | /bin/sh"
 services: mongodb
 before_deploy:
-  - " ~/.meteor/meteor build .build"
+  - " ~/.meteor/meteor build .build --architecture os.linux.x86_64"
 deploy:
   provider: releases
   api_key:
