@@ -11,8 +11,6 @@ Template.MainLayout.events({
             .closest('li')
             .addClass('active');
 
-        Session.set('campanyQuery', $elem.data('val'));
-
-        Router.go('statistic');
+        Router.go('statistic', {campaignName: $elem.data('val')});
     }
 });
