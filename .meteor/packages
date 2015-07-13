@@ -18,3 +18,4 @@ harrison:papa-parse
 cfs:standard-packages
 cfs:filesystem
 mrt:iconv-lite
+reactive-var

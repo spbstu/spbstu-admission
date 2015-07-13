@@ -1,0 +1,7 @@
+<template name="Campaigns">
+    <ul class="right hide-on-med-and-down campany-selector">
+        {{# each campaigns}}
+        <li class="{{activeClassName this}}"><a href="{{pathFor route='statistic' campaignName=this}}">{{this}}</a></li>
+        {{/each}}
+    </ul>
+</template>
