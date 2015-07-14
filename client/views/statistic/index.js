@@ -1,10 +1,7 @@
-Session.setDefault('groupsQuery', {});
-Session.setDefault('campanyQuery', 'Основной прием');
-
 getGroups = function() {
     var controller = Iron.controller(),
         params = controller.getParams(),
-        filter = _.extend(groupFilter.get(), {admissionLevel: (params.campaignName || 'Основной прием')}),
+        filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()}),
         groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
         groups = Groups.find(filter, groupsParams).fetch();
 
