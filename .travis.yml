@@ -5,12 +5,13 @@ before_install:
   - "curl https://install.meteor.com | /bin/sh"
 services: mongodb
 before_deploy:
-  - " ~/.meteor/meteor build .build"
+  - "cd src"
+  - "~/.meteor/meteor build ../build --architecture os.linux.x86_64"
 deploy:
   provider: releases
   api_key:
     secure: iNZS1gDgDWSnHJzE6ig3m/VeDD0BV3ixeP1bciVXTm0PI7uC8htKNKQCK1sckTa2GTitsm7Td26/Lvupgqj5dzM8/HaWRTKFddzV/S5XvovtE/k+uaaJCPcuPRWW6iDDEvq1K/akodsaxJulcCDjTyDGNOAq7pYGKN1yBAmWj3EyFgfCW/ZPG9lfyuGj9AWV88k7jS8iDzOnIF7842bPjGk8+JGY5BRz3WPIhNHFdiGBk6V6+Cp0CItumSf5DY2BgF+HSB2SvoR5sNt67BOXGH0PoiejjGMocTtu3UAGTB1gaZOapRytNyCIaa3EDM1/Asji3nHC4cCuHGTDyhJJmZ2VkyS2x9/yglSpb02PEgPMGlQszQshAymwhq+3Mf88gU/UNwMppD57kki8V+Qfh9+hHvKyrUBNWyrgaE4xExSQwIQ6iD8RaQ35WI+tREvGkCBdHZnAVljH3VoYGnmdKP9e6Fq6UDguun5+dzo/vbfeyhwFm9dFNqlvV8rGpvI6GXwfMLxjR2RpGy5NUrNwvYYGOPIu8VuZ5oItys6tqhThARMBA9AxSxN8cYFO4wWSaf1+GJqULQdZgrEav/4Ap0PpUd92VZ0F7hti1sVNfLjW7rT8oJ7ZDdVvr+jB624Owzgqppry28y69yP0rOVQH3xVHxtcEJAj8nmvRbnYrak=
-  file: ".build/spbstu-admission.tar.gz"
+  file: "$TRAVIS_BUILD_DIR/build/src.tar.gz"
   on:
     tags: true
     repo: h4/spbstu-admission
