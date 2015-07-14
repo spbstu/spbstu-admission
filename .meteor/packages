@@ -19,3 +19,4 @@ cfs:standard-packages
 cfs:filesystem
 mrt:iconv-lite
 reactive-var
+sacha:spin
