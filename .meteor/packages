@@ -8,7 +8,7 @@ meteor-platform
 insecure
 accounts-ui
 accounts-password
-materialize:materialize
+materialize:materialize@=0.96.1
 useraccounts:core
 useraccounts:materialize
 iron:router

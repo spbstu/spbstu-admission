@@ -1,45 +1,16 @@
 <template name="Navigation">
-<li class="row">
-    <div class="input-field col s12">
-        <select name="educationForm">
-            <option value="" selected>Все</option>
-            <option value="Очная">Очная</option>
-            <option value="Заочная">Заочная</option>
-        </select>
-        <label>Форма обучения</label>
-    </div>
-</li>
-<li class="row">
-    <div class="input-field col s12">
-        <select name="paymentForm">
-            <option value="" selected>Все</option>
-            <option value="Бюджет">Бюджет</option>
-            <option value="Контракт">Контракт</option>
-        </select>
-        <label>Бюджет/контракт</label>
-    </div>
-</li>
-<li class="row">
-    <div class="input-field col s12">
-        <select name="program">
-            <option value="" selected>Все</option>
-            <option value="Магистратура">Магистратура</option>
-            <option value="Специалитет">Специалитет</option>
-            <option value="Академический бакалавриат">Академический бакалавриат</option>
-            <option value="Аспирантура">Аспирантура</option>
-        </select>
-        <label>Программа</label>
-    </div>
-</li>
-<li class="row">
-    <div class="input-field col s12">
-        <select name="educationLevel">
-            <option value="" selected>Все</option>
-            <option value="среднее общее">среднее общее</option>
-            <option value="высшее">высшее</option>
-            <option value="среднее профессиональное">среднее профессиональное</option>
-        </select>
-        <label>Базовое образование</label>
-    </div>
-</li>
+    {{#each items.filters}}
+        <li class="row">
+            <div class="input-field col s12">
+                <select name="{{name}}">
+                    {{#each values}}
+                        <option value="{{k}}" {{selectedAttr k ../currentValue}}>{{v}}</option>
+                    {{/each}}
+                </select>
+                <label>{{title}}</label>
+            </div>
+        </li>
+
+    {{/each}}
+    <li class="row white"><div class="col s12"><button class="reset-filter btn grey">Сбросить фильтр</button></div></li>
 </template>
