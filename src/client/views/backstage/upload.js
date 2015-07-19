@@ -1,39 +1,51 @@
 Template.BackstageUpload.events({
     'change #groups': function(event, template) {
         var input = event.target,
-            file = event.target.files[0];
+            file = event.target.files[0],
+            btn = $(input).closest('.btn');
+
+        btn.addClass('disabled');
 
         GroupsFiles.insert(file, function(err, fileObj) {
             if (err) {
                 console.log('Upload error:', err);
             } else {
                 template.find('.upload-form').reset();
+                btn.removeClass('disabled');
             }
         });
     },
 
     'change #counters': function(event, template) {
         var input = event.target,
-            file = event.target.files[0];
+            file = event.target.files[0],
+            btn = $(input).closest('.btn');
+
+        btn.addClass('disabled');
 
         CountersFiles.insert(file, function(err, fileObj) {
             if (err) {
                 console.log('Upload error:', err);
             } else {
                 template.find('.upload-form').reset();
+                btn.removeClass('disabled');
             }
         });
     },
 
     'change #abiturients': function(event,template) {
         var input = event.target,
-            file = event.target.files[0];
+            file = event.target.files[0],
+            btn = $(input).closest('.btn');
+
+        btn.addClass('disabled');
 
         AbiturientsFiles.insert(file, function(err, fileObj) {
             if (err) {
                 console.log('Upload error:', err);
             } else {
                 template.find('.upload-form').reset();
+                btn.removeClass('disabled');
             }
         });
     }
