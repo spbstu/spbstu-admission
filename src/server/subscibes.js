@@ -9,3 +9,7 @@ Meteor.publish('groupInfo', function(groupId) {
 Meteor.publish('abiturients', function(groupId) {
     return Abiturients.find({groupId: groupId});
 });
+
+Meteor.publish('uploadStatus', function() {
+    return uploadStatus.find({});
+});

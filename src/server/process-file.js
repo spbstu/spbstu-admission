@@ -1,3 +1,9 @@
+function updateUploadProgress(collection, value) {
+    value = value || 0;
+
+    uploadStatus.update({name: collection}, {$set: {name: collection, value: value}}, {upsert: true});
+}
+
 function storedHandlerFactory(collectionName) {
     /**
      * Приходится нафигачить фабрику, потому что FS.Collection файрит событие 'stored' на все коллекции
@@ -39,12 +45,16 @@ function storedHandler(fileObj, storeName) {
 
 function processGroups(data) {
     var result = Papa.parse(data, {
-        skipEmptyLines: true
-    });
+            skipEmptyLines: true
+        }),
+        skipLines = 1,
+        count = result.data.length - skipLines;
 
     if (result.errors.length === 0) {
+        updateUploadProgress('groups');
+
         result.data
-            .slice(1)
+            .slice(skipLines)
             .map(function (item) {
                 return {
                     faculty: item[ 0 ],           // Факультет
@@ -60,9 +70,14 @@ function processGroups(data) {
                     semilimit: item[ 10 ]         // Полупроходной балл
                 }
             })
-            .forEach(function (item) {
+            .forEach(function (item, index) {
                 Groups.insert(item);
+                var progress = Math.floor((index / count) * 100);
+
+                updateUploadProgress('groups', progress);
             });
+
+        updateUploadProgress('groups');
     } else {
         console.log('Errors caused', result.errors);
     }
@@ -70,13 +85,17 @@ function processGroups(data) {
 
 function processCounters(data) {
     var result = Papa.parse(data, {
-        skipEmptyLines: true
-    });
+            skipEmptyLines: true
+        }),
+        skipLines = 1,
+        count = result.data.length - skipLines;
+
+    updateUploadProgress('counters');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
         result.data
-            .slice(1)
+            .slice(skipLines)
             .map(function (item) {
                 return {
                     groupId: item[ 0 ],                         // UID группы
@@ -85,7 +104,7 @@ function processCounters(data) {
                     docsCount: parseInt(item[ 4 ])              // Подано документов
                 }
             })
-            .forEach(function (item) {
+            .forEach(function (item, index) {
                 Groups.update({
                     groupId: item.groupId
                 }, {
@@ -95,7 +114,13 @@ function processCounters(data) {
                         console.log(err);
                     }
                 });
+
+                var progress = Math.floor((index / count) * 100);
+
+                updateUploadProgress('counters', progress);
             });
+
+        updateUploadProgress('counters');
     } else {
         console.log(result.errors);
     }
@@ -103,14 +128,19 @@ function processCounters(data) {
 
 function processAbiturients(data) {
     var result = Papa.parse(data, {
-        skipEmptyLines: true
-    });
+            skipEmptyLines: true
+        }),
+        skipLines = 1,
+        count = result.data.length - skipLines;
+
+    updateUploadProgress('abiturients');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
 
+
         result.data
-            .slice(1)
+            .slice(skipLines)
             .map(function (item) {
                 return {
                     order: parseInt(item[ 0 ]),        // Номер по порядку внутри группы
@@ -132,15 +162,21 @@ function processAbiturients(data) {
                     category: item[ 16 ]               // Категория поступления
                 }
             })
-            .forEach(function (item) {
+            .forEach(function (item, index) {
                 Abiturients.update({
                     abiturientUid: item.abiturientUid
                 }, {
                     $set: item
                 }, {
                     upsert: true
-                })
+                });
+
+                var progress = Math.floor((index / count) * 100);
+
+                updateUploadProgress('abiturients', progress);
             });
+
+        updateUploadProgress('abiturients');
     } else {
         console.log(result.errors);
     }

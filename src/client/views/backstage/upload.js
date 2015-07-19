@@ -54,3 +54,19 @@ Template.BackstageUpload.rendered = function() {
         });
     });
 };
+
+function _getProgress(collection) {
+    return uploadStatus.findOne({name: collection}) && uploadStatus.findOne({name: collection})['value'];
+}
+
+Template.BackstageUpload.helpers({
+    groupsProgress: function() {
+        return _getProgress('groups');
+    },
+    countersProgress: function() {
+        return _getProgress('counters');
+    },
+    abiturientsProgress: function() {
+        return _getProgress('abiturients');
+    }
+});

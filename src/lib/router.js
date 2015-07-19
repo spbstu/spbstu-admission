@@ -56,6 +56,11 @@ Router.map(function() {
         onBeforeAction: function() {
             $('body').addClass('inner-page');
             this.next();
+        },
+        waitOn: function() {
+            return [
+                Meteor.subscribe('uploadStatus')
+            ]
         }
     })
 });

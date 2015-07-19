@@ -1,6 +1,8 @@
 Groups = new Mongo.Collection('groups');
 Abiturients = new Mongo.Collection('abiturients');
 
+uploadStatus = new Mongo.Collection('uploadStatus');
+
 Groups.allow({
     insert: function() {
         return true;

@@ -20,3 +20,4 @@ cfs:filesystem
 mrt:iconv-lite
 reactive-var
 sacha:spin
+reactive-dict
