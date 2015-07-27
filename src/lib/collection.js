@@ -2,6 +2,7 @@ Groups = new Mongo.Collection('groups');
 Abiturients = new Mongo.Collection('abiturients');
 
 uploadStatus = new Mongo.Collection('uploadStatus');
+SiteSettings = new Mongo.Collection('siteSettings');
 
 Groups.allow({
     insert: function() {
@@ -42,6 +43,9 @@ Abiturients.deny({
 FSStore = new FS.Store.FileSystem("files");
 
 GroupsFiles = new FS.Collection("groupsFiles", {
+    stores: [FSStore]
+});
+RatingGroupsFiles = new FS.Collection("ratingGroupsFiles", {
     stores: [FSStore]
 });
 CountersFiles = new FS.Collection("countersFiles", {

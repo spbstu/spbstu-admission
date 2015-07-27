@@ -12,9 +12,12 @@
                             <th data-field="form">Форма обучения</th>
                             <th data-field="payment">Бюджет/Контракт</th>
                             <th data-field="graduate">Базовое образование</th>
+
+                            {{#if showCounters}}
                             <th data-field="planned">План</th>
                             <th data-field="applicationsCount">Заявлений</th>
                             <th data-field="docsCount">Оригиналов</th>
+                            {{/if}}
                         </tr>
                         </thead>
                         <tbody>
@@ -24,9 +27,12 @@
                             <td>{{educationForm}}</td>
                             <td>{{paymentForm}}</td>
                             <td>{{educationLevel}}</td>
+
+                            {{#if showCounters}}
                             <td class="table-int">{{planned}}</td>
                             <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
                             <td class="table-int">{{docsCount}}</td>
+                            {{/if}}
                         </tr>
                         {{/each}}
                         </tbody>
@@ -41,5 +47,5 @@
     {{/each}}
     </ul>
 
-    {{#contentFor "title"}}<h5 class="col offset-s1">Статистика принятых заявлений</h5>{{/contentFor}}
+    {{#contentFor "title"}}<h5 class="col offset-s1">{{title}}</h5>{{/contentFor}}
 </template>

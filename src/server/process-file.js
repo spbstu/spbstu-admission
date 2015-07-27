@@ -33,6 +33,9 @@ function storedHandler(fileObj, storeName) {
             case 'groupsFiles':
                 processGroups(data);
                 break;
+            case 'ratingGroupsFiles':
+                processRatingGroups(data);
+                break;
             case 'countersFiles':
                 processCounters(data);
                 break;
@@ -68,6 +71,45 @@ function processGroups(data) {
                     exams: item[ 8 ],             // Экзамены
                     limit: item[ 9 ],             // Проходной балл
                     semilimit: item[ 10 ]         // Полупроходной балл
+                }
+            })
+            .forEach(function (item, index) {
+                Groups.insert(item);
+                var progress = Math.floor((index / count) * 100);
+
+                updateUploadProgress('groups', progress);
+            });
+
+        updateUploadProgress('groups');
+    } else {
+        console.log('Errors caused', result.errors);
+    }
+}
+
+function processRatingGroups(data) {
+    var result = Papa.parse(data, {
+            skipEmptyLines: true
+        }),
+        skipLines = 0,
+        count = result.data.length - skipLines;
+
+    if (result.errors.length === 0) {
+        Groups.remove({});
+        updateUploadProgress('groups');
+
+        result.data
+            .slice(skipLines)
+            .map(function (item) {
+                return {
+                    faculty: item[ 0 ],           // Факультет
+                    title: item[ 1 ],             // Название группы
+                    groupId: item[ 2 ],           // UID группы
+                    educationForm: item[ 3 ],     // Форма обучения
+                    program: item[ 4 ],           // Программа
+                    paymentForm: item[ 5 ],       // Бюджет/контракт
+                    educationLevel: item[ 6 ],    // Базовое образование
+                    admissionLevel: item[ 7 ],    // Приёмная кампания
+                    exams: item[ 8 ]              // Экзамены
                 }
             })
             .forEach(function (item, index) {
@@ -183,5 +225,6 @@ function processAbiturients(data) {
 }
 
 GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));
+RatingGroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingGroupsFiles')));
 CountersFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('countersFiles')));
 AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('abiturientsFiles')));

@@ -28,6 +28,14 @@ getGroups = function() {
 Template.Statistic.helpers({
     rows: function() {
         return getGroups();
+    },
+    showCounters: function() {
+        // Todo: Перевести на настройки из бекстейджа
+        return false;
+    },
+    title: function() {
+        // return 'Статистика принятых заявлений'
+        return 'Рейтинг абитуриентов';
     }
 });
 

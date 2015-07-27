@@ -29,7 +29,7 @@ Template.BackstageUpload.events({
     },
 
     'change #rating-groups': function(event, template) {
-        FileUploadHandler(event, template, GroupsFiles);
+        FileUploadHandler(event, template, RatingGroupsFiles);
     }
 });
 
