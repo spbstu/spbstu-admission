@@ -262,6 +262,8 @@ function processRating(data) {
             updateUploadProgress('ratings', progress);
         });
 
+        updateGroupRatingInfo();
+
         updateUploadProgress('ratings');
     } else {
         console.log(result.errors);
@@ -304,6 +306,22 @@ function updateRating(dataList) {
     };
 
     Ratings.insert(doc);
+}
+
+function updateGroupRatingInfo() {
+    Groups.find({}).forEach(function(group) {
+        var count1 = Ratings.find({groupId: group.groupId, contestType: "1"}).count(),
+            count2 = Ratings.find({groupId: group.groupId, contestType: "2"}).count(),
+            count3 = Ratings.find({groupId: group.groupId, contestType: "3"}).count(),
+            count4 = Ratings.find({groupId: group.groupId, contestType: "4"}).count();
+
+        Groups.update({_id: group._id}, {$set: {
+            count1: count1,
+            count2: count2,
+            count3: count3,
+            count4: count4
+        }});
+    });
 }
 
 GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));

@@ -1,10 +1,21 @@
+function getContestGroupFilter() {
+    var contestGroupId = contestGroupMap.get(currentContestGroup.get()),
+        filter = {};
+
+    filter['count' + contestGroupId] = {$gt: 0};
+
+    return filter;
+}
+
 getGroups = function() {
     var controller = Iron.controller(),
-        filter = groupFilter.get(),
+        filter = _.extend(groupFilter.get(), getContestGroupFilter()),
         // Todo: Перевести на настройки из SiteSettings
         // filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()}),
         groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
         groups = Groups.find(filter, groupsParams).fetch();
+
+    console.log(contestGroupMap.get(currentContestGroup.get()));
 
     return _.chain(groups)
         .map(function(item) {
