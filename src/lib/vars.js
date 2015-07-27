@@ -1,5 +1,11 @@
 campaigns = new ReactiveVar(['Основной прием', 'Колледж', 'Крым']);
+contestGroups = new ReactiveVar(['Общий конкурс', 'Без вступительных испытатаний', 'Особое право', 'Целевой приём']);
+
 currentCampaign = new ReactiveVar('Основной прием', function(oldVal, newVal) {
+    return ! newVal || oldVal === newVal;
+});
+
+currentContestGroup = new ReactiveVar('Общий конкурс', function(oldVal, newVal) {
     return ! newVal || oldVal === newVal;
 });
 
@@ -35,10 +41,10 @@ function Filter(name, title, values, initial) {
 
 groupFilter = {
     filters: [
-        new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная']),
-        new Filter('paymentForm', 'Бюджет/контракт', ['Бюджет', 'Контракт']),
-        new Filter('program', 'Программа', ['Академический бакалавриат', 'Магистратура', 'Специалитет', 'Аспирантура']),
-        new Filter('educationLevel', 'Базовое образование', ['среднее общее', 'высшее', 'среднее профессиональное']),
+        new Filter('educationForm', 'Форма обучения', ['очная', 'заочная', 'очно-заочная']),
+        new Filter('paymentForm', 'Финансирование', ['бюджет', 'контракт']),
+        new Filter('program', 'Программа', ['академический бакалавриат', 'магистратура', 'специалитет', 'аспирантура']),
+        new Filter('educationBaseLevel', 'Базовое образование', ['среднее общее', 'среднее профессиональное', 'высшее'])
     ],
 
     reset: function() {
