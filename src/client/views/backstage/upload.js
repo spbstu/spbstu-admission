@@ -1,53 +1,35 @@
+function FileUploadHandler(event, template, Collection) {
+    var input = event.target,
+        file = event.target.files[0],
+        btn = $(input).closest('.btn');
+
+    btn.addClass('disabled');
+
+    Collection.insert(file, function(err, fileObj) {
+        if (err) {
+            console.log('Upload error:', err);
+        } else {
+            template.find('.upload-form').reset();
+            btn.removeClass('disabled');
+        }
+    });
+}
+
 Template.BackstageUpload.events({
     'change #groups': function(event, template) {
-        var input = event.target,
-            file = event.target.files[0],
-            btn = $(input).closest('.btn');
-
-        btn.addClass('disabled');
-
-        GroupsFiles.insert(file, function(err, fileObj) {
-            if (err) {
-                console.log('Upload error:', err);
-            } else {
-                template.find('.upload-form').reset();
-                btn.removeClass('disabled');
-            }
-        });
+        FileUploadHandler(event, template, GroupsFiles);
     },
 
     'change #counters': function(event, template) {
-        var input = event.target,
-            file = event.target.files[0],
-            btn = $(input).closest('.btn');
-
-        btn.addClass('disabled');
-
-        CountersFiles.insert(file, function(err, fileObj) {
-            if (err) {
-                console.log('Upload error:', err);
-            } else {
-                template.find('.upload-form').reset();
-                btn.removeClass('disabled');
-            }
-        });
+        FileUploadHandler(event, template, CountersFiles);
     },
 
-    'change #abiturients': function(event,template) {
-        var input = event.target,
-            file = event.target.files[0],
-            btn = $(input).closest('.btn');
+    'change #abiturients': function(event, template) {
+        FileUploadHandler(event, template, AbiturientsFiles);
+    },
 
-        btn.addClass('disabled');
-
-        AbiturientsFiles.insert(file, function(err, fileObj) {
-            if (err) {
-                console.log('Upload error:', err);
-            } else {
-                template.find('.upload-form').reset();
-                btn.removeClass('disabled');
-            }
-        });
+    'change #rating-groups': function(event, template) {
+        FileUploadHandler(event, template, GroupsFiles);
     }
 });
 
@@ -65,6 +47,8 @@ Template.BackstageUpload.rendered = function() {
             path_input.trigger('change');
         });
     });
+
+    $('.collapsible').collapsible({});
 };
 
 function _getProgress(collection) {
