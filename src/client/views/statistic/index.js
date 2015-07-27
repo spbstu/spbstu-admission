@@ -16,8 +16,6 @@ getGroups = function() {
         groupsParams = {sort: {faculty: 1, title: 1}},
         groups = Groups.find(filter, groupsParams).fetch();
 
-    console.log(contestGroupMap.get(currentContestGroup.get()));
-
     return _.chain(groups)
         .map(function(item) {
             // Todo: Перевести на настройки из SiteSettings
