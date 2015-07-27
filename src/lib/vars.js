@@ -9,6 +9,13 @@ currentContestGroup = new ReactiveVar('Общий конкурс', function(oldV
     return ! newVal || oldVal === newVal;
 });
 
+contestGroupMap = new ReactiveDict('Конкурсные группы');
+
+contestGroupMap.set('Общий конкурс', 2);
+contestGroupMap.set('Без вступительных испытатаний', 1);
+contestGroupMap.set('Особое право', 3);
+contestGroupMap.set('Целевой приём', 4);
+
 function Filter(name, title, values, initial) {
     this._initialValue = initial || '';
     this._values = new ReactiveVar([{k: '', v: 'Все'}].concat(values.map(function(item) {return {k: item, v: item}})));

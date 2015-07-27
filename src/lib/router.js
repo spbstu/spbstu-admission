@@ -25,7 +25,7 @@ Router.map(function() {
             this.next();
         },
         onBeforeAction: function() {
-            currentCampaign.set(this.params.campaignName);
+            currentContestGroup.set(this.params.campaignName);
             groupFilter.reset();
             this.next();
         },
