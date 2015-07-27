@@ -12,7 +12,8 @@ getGroups = function() {
         filter = _.extend(groupFilter.get(), getContestGroupFilter()),
         // Todo: Перевести на настройки из SiteSettings
         // filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()}),
-        groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
+        //groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
+        groupsParams = {sort: {faculty: 1, title: 1}},
         groups = Groups.find(filter, groupsParams).fetch();
 
     console.log(contestGroupMap.get(currentContestGroup.get()));
