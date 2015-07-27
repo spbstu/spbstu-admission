@@ -278,12 +278,11 @@ function updateSiteSettings(key, value) {
 
 function updateRatingScore(dataList) {
     var doc = {
-        groupId: dataList[0],
         limit: dataList[1],
         semiLimit: dataList[2]
     };
 
-    Groups.update({groupId: doc.groupId}, doc);
+    Groups.update({groupId: dataList[0]}, {$set: doc});
 }
 
 function updateRating(dataList) {
