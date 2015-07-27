@@ -1,44 +1,39 @@
 Groups = new Mongo.Collection('groups');
 Abiturients = new Mongo.Collection('abiturients');
+Ratings = new Mongo.Collection('ratings');
 
 uploadStatus = new Mongo.Collection('uploadStatus');
 SiteSettings = new Mongo.Collection('siteSettings');
 
-Groups.allow({
+allowBase = {
     insert: function() {
         return true;
     },
     update: function (userId, doc, fields, modifier) {
         return true;
     }
-});
+};
 
-Groups.deny({
+denyBase = {
     insert: function() {
         return false;
     },
     update: function (userId, doc, fields, modifier) {
         return false;
     }
-});
+};
 
-Abiturients.allow({
-    insert: function() {
-        return true;
-    },
-    update: function (userId, doc, fields, modifier) {
-        return true;
-    }
-});
+Groups.allow(allowBase);
+Groups.deny(denyBase);
 
-Abiturients.deny({
-    insert: function() {
-        return false;
-    },
-    update: function (userId, doc, fields, modifier) {
-        return false;
-    }
-});
+Abiturients.allow(allowBase);
+Abiturients.deny(denyBase);
+
+Ratings.allow(allowBase);
+Ratings.deny(denyBase);
+
+SiteSettings.allow(allowBase);
+SiteSettings.deny(denyBase);
 
 FSStore = new FS.Store.FileSystem("files");
 
@@ -52,5 +47,8 @@ CountersFiles = new FS.Collection("countersFiles", {
     stores: [FSStore]
 });
 AbiturientsFiles = new FS.Collection("abiturientsFiles", {
+    stores: [FSStore]
+});
+RatingFiles = new FS.Collection("ratingFiles", {
     stores: [FSStore]
 });

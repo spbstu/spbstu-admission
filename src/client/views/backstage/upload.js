@@ -30,6 +30,10 @@ Template.BackstageUpload.events({
 
     'change #rating-groups': function(event, template) {
         FileUploadHandler(event, template, RatingGroupsFiles);
+    },
+
+    'change #rating-list': function(event, template) {
+        FileUploadHandler(event, template, RatingFiles);
     }
 });
 
@@ -64,5 +68,8 @@ Template.BackstageUpload.helpers({
     },
     abiturientsProgress: function() {
         return _getProgress('abiturients');
+    },
+    ratingsProgress: function() {
+        return _getProgress('ratings');
     }
 });

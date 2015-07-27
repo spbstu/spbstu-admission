@@ -42,6 +42,9 @@ function storedHandler(fileObj, storeName) {
             case 'abiturientsFiles':
                 processAbiturients(data);
                 break;
+            case 'ratingFiles':
+                processRating(data);
+                break;
         }
     }));
 }
@@ -101,15 +104,19 @@ function processRatingGroups(data) {
             .slice(skipLines)
             .map(function (item) {
                 return {
-                    faculty: item[ 0 ],           // Факультет
-                    title: item[ 1 ],             // Название группы
-                    groupId: item[ 2 ],           // UID группы
-                    educationForm: item[ 3 ],     // Форма обучения
-                    program: item[ 4 ],           // Программа
-                    paymentForm: item[ 5 ],       // Бюджет/контракт
-                    educationLevel: item[ 6 ],    // Базовое образование
-                    admissionLevel: item[ 7 ],    // Приёмная кампания
-                    exams: item[ 8 ]              // Экзамены
+                    faculty: item[ 3 ],                     // Факультет
+                    facultyAbbr: item[ 2 ],                 // Факультет сокращенно
+                    title: item[ 4 ],                       // Название группы
+                    groupId: item[ 0 ],                     // UID группы
+                    educationForm: item[ 5 ],               // Форма обучения
+                    program: item[ 7 ],                     // Программа
+                    paymentForm: item[ 6 ],                 // Бюджет/контракт
+                    educationLevel: item[ 1 ],              // Уровень образования
+                    educationBaseLevel: item[ 8 ],          // Базовое образование
+                    exam1: item[ 9 ],                       // Экзамен 1
+                    exam2: item[ 10 ],                      // Экзамен 2
+                    exam3: item[ 11 ],                      // Экзамен 3
+                    examExtra: item[ 12 ]                   // Доп достижения
                 }
             })
             .forEach(function (item, index) {
@@ -224,7 +231,84 @@ function processAbiturients(data) {
     }
 }
 
+function processRating(data) {
+    var result = Papa.parse(data, {
+            skipEmptyLines: true
+        }),
+        skipLines = 0,
+        l = 0,
+        count = result.data.length - skipLines;
+
+    updateUploadProgress('ratings');
+
+    if (result.errors.length === 0) {
+        Ratings.remove({});
+
+        result.data.forEach(function(item, index) {
+            var progress = Math.floor((index / count) * 100);
+
+            switch (item.length) {
+                case 1:
+                    updateSiteSettings('lastUpdate', item[0]);
+                    break;
+                case 3:
+                    updateRatingScore(item);
+                    break;
+                default:
+                    updateRating(item);
+                    break;
+            }
+
+            updateUploadProgress('ratings', progress);
+        });
+
+        updateUploadProgress('ratings');
+    } else {
+        console.log(result.errors);
+    }
+}
+
+function updateSiteSettings(key, value) {
+    var doc = {};
+
+    doc[key] = value;
+
+    SiteSettings.update(doc, {$set: doc}, {upsert: true});
+}
+
+function updateRatingScore(dataList) {
+    var doc = {
+        groupId: dataList[0],
+        limit: dataList[1],
+        semiLimit: dataList[2]
+    };
+
+    Groups.update({groupId: doc.groupId}, doc);
+}
+
+function updateRating(dataList) {
+    var doc = {
+        groupId: dataList[0],
+        rating: dataList[1],
+        name: dataList[2],
+        gender: dataList[3],
+        birthDate: dataList[4],
+        priority: dataList[5],
+        documentType: dataList[6],
+        contestType: dataList[7],
+        score1: dataList[8],
+        score2: dataList[9],
+        score3: dataList[10],
+        additionalScore: dataList[11],
+        recommendationType: dataList[12],
+        customerName: dataList[13]
+    };
+
+    Ratings.insert(doc);
+}
+
 GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));
 RatingGroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingGroupsFiles')));
 CountersFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('countersFiles')));
 AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('abiturientsFiles')));
+RatingFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingFiles')));
