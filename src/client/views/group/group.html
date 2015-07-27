@@ -2,21 +2,30 @@
     <table class="data-table col s10 offset-s1 striped">
         <thead>
         <tr>
-            <th data-field="num">№</th>
-            <th data-field="fullname">Фамилия Имя Отчество</th>
-            <th data-field="docsCount">Приоритет</th>
-            <th data-field="docsCount">Тип документа</th>
-            <th data-field="applicationsCount">Форма конкурса</th>
+            <th data-field="fullname" rowspan="2">Фамилия Имя Отчество</th>
+            <th data-field="docsCount" rowspan="2">Приоритет</th>
+            <th data-field="docsCount" rowspan="2">Баллы</th>
+            <th data-field="docsCount" colspan="3" class="center">Баллы по предметам</th>
+            <th data-field="docsCount" rowspan="2">Баллы за инд. дост-я</th>
+            <th data-field="docsCount" rowspan="2">Тип документа</th>
+        </tr>
+        <tr>
+            <th>{{ group.exam1 }}</th>
+            <th>{{ group.exam2 }}</th>
+            <th>{{ group.exam3 }}</th>
         </tr>
         </thead>
         <tbody>
         {{#each persons}}
         <tr class="{{#if isFirst}}first{{/if}}" >
-            <td>{{order}}</td>
-            <th>{{lastName}} {{firstName}} {{patronimusName}}</th>
+            <th>{{name}}</th>
             <td>{{priority}}</td>
+            <td>-</td>
+            <td>{{score1}}</td>
+            <td>{{score2}}</td>
+            <td>{{score3}}</td>
+            <td>{{additionalScore}}</td>
             <td>{{documentType}}</td>
-            <td>{{contestForm}}</td>
         </tr>
         {{else}}
         <tr>

@@ -3,7 +3,9 @@ Template.Group.helpers({
         var controller = Iron.controller(),
             params = controller.getParams();
 
-        return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
+        // Todo: Перевести на настройки из SiteSettings
+        //return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
+        return Ratings.find({ groupId: params.groupId.toString() }, {sort: { order: 1 }});
     },
 
     group: function() {

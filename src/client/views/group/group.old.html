@@ -1,0 +1,35 @@
+<template name="GroupOld">
+    <table class="data-table col s10 offset-s1 striped">
+        <thead>
+        <tr>
+            <th data-field="num">№</th>
+            <th data-field="fullname">Фамилия Имя Отчество</th>
+            <th data-field="docsCount">Приоритет</th>
+            <th data-field="docsCount">Тип документа</th>
+            <th data-field="applicationsCount">Форма конкурса</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each persons}}
+        <tr class="{{#if isFirst}}first{{/if}}" >
+            <td>{{order}}</td>
+            <th>{{lastName}} {{firstName}} {{patronimusName}}</th>
+            <td>{{priority}}</td>
+            <td>{{documentType}}</td>
+            <td>{{contestForm}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="5">Записей не найдено</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    {{#contentFor "title"}}
+    <h6 class="group-title">
+        {{group.faculty}}, {{group.title}}<br>
+        {{group.educationForm}}, {{group.paymentForm}}
+    </h6>
+    {{/contentFor}}
+</template>
