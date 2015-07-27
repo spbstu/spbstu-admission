@@ -17,3 +17,7 @@ Meteor.publish('ratings', function(groupId) {
 Meteor.publish('uploadStatus', function() {
     return uploadStatus.find({});
 });
+
+Meteor.publish('siteSettings', function() {
+    return SiteSettings.find({});
+});

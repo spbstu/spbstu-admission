@@ -4,7 +4,12 @@ Router.plugin('ensureSignedIn', {
 
 Router.configure({
     layoutTemplate: 'MainLayout',
-    loadingTemplate: 'Loading'
+    loadingTemplate: 'Loading',
+    waitOn: function() {
+        return [
+            Meteor.subscribe('siteSettings')
+        ];
+    }
 });
 
 Router.map(function() {
