@@ -1,7 +1,8 @@
 <template name="Group">
-    <table class="data-table col s10 offset-s1 striped">
+    <table class="rating-table data-table col s10 offset-s1 striped">
         <thead>
         <tr>
+            <th data-field="fullname" rowspan="2">№ п.п.</th>
             <th data-field="fullname" rowspan="2">Фамилия Имя Отчество</th>
             <th data-field="docsCount" rowspan="2">Приоритет</th>
             <th data-field="docsCount" rowspan="2">Баллы</th>
@@ -18,18 +19,19 @@
         <tbody>
         {{#each persons}}
         <tr class="{{#if isFirst}}first{{/if}}" >
+            <td>{{index1}}</td>
             <th>{{name}}</th>
-            <td>{{priority}}</td>
-            <td>-</td>
-            <td>{{score1}}</td>
-            <td>{{score2}}</td>
-            <td>{{score3}}</td>
-            <td>{{additionalScore}}</td>
-            <td>{{documentType}}</td>
+            <td class="center">{{priority}}</td>
+            <td class="center">{{sum score1 score2 score3 additionalScore}}</td>
+            <td class="center">{{score1}}</td>
+            <td class="center">{{score2}}</td>
+            <td class="center">{{score3}}</td>
+            <td class="center">{{additionalScore}}</td>
+            <td>{{docType documentType}}</td>
         </tr>
         {{else}}
         <tr>
-            <td colspan="5">Записей не найдено</td>
+            <td colspan="9">Записей не найдено</td>
         </tr>
         {{/each}}
         </tbody>
