@@ -271,11 +271,12 @@ function processRating(data) {
 }
 
 function updateSiteSettings(key, value) {
-    var doc = {};
+    var doc = {},
+        lookup = {'lastUpdate': {$exists: true}};
 
     doc[key] = value;
 
-    SiteSettings.update(doc, {$set: doc}, {upsert: true});
+    SiteSettings.update(lookup, {$set: doc}, {upsert: true});
 }
 
 function updateRatingScore(dataList) {

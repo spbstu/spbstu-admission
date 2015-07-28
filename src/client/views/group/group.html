@@ -2,6 +2,7 @@
     <div class="col s10 offset-s1 ">
         <div class="card blue-grey darken-1">
             <div class="card-content white-text">
+                {{#unless showRecommendation group}}
                 <p>После зачисления поступающих без вступительных испытаний и поступающих
 
         на места в пределах квот целевого приема и особого права с <b>30.07.2015</b>
@@ -11,6 +12,15 @@
         поступающих в 80% для зачисления в I волне и с указанием проходного балла на
 
         текущую дату</p>
+                {{else}}
+                В 80% конкурсных мест попадают лица,
+
+                представившие оригинал документа об образовании и набравшие {{group.limit}} баллов и выше{{#if showSemiLimit group}}, и лица,
+
+                имеющие полупроходной балл {{group.semiLimit}} и имеющие преимущество в соответствии с правилами
+
+                приема{{/if}}
+                {{/unless}}
             </div>
         </div>
     </div>
@@ -27,6 +37,9 @@
             <th data-field="docsCount" colspan="3" class="center">Баллы по предметам</th>
             <th data-field="docsCount" rowspan="2">Баллы за инд. дост-я</th>
             <th data-field="docsCount" rowspan="2">Тип документа</th>
+            {{#if showRecommendation group}}
+            <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
+            {{/if}}
         </tr>
         <tr>
             <th>{{ group.exam1 }}</th>
@@ -42,12 +55,15 @@
             {{#if showPriority }}
             <td class="center">{{priority}}</td>
             {{/if}}
-            <td class="center">{{sum score1 score2 score3 additionalScore}}</td>
+            <td class="center">{{totalScore}}</td>
             <td class="center">{{score1}}</td>
             <td class="center">{{score2}}</td>
             <td class="center">{{score3}}</td>
             <td class="center">{{additionalScore}}</td>
             <td>{{docType documentType}}</td>
+            {{#if showRecommendation group}}
+            <td><small>{{recommendation recommendationType}}</small></td>
+            {{/if}}
         </tr>
         {{else}}
         <tr>
