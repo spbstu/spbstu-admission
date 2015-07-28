@@ -1,5 +1,7 @@
 Template.MainLayout.helpers({
     lastUpdate: function() {
-        return SiteSettings.findOne({'lastUpdate': {$exists: true}})['lastUpdate'];
+        var settings = SiteSettings.findOne({'lastUpdate': {$exists: true}});
+
+        return settings && settings['lastUpdate'];
     }
 });
