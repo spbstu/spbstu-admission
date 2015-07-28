@@ -35,6 +35,26 @@ Template.Group.helpers({
         return Groups.findOne({groupId: params.groupId});
     },
 
+    examCount: function(group) {
+        if (group.exam2 !== "") {
+            if (group.exam3 !== "") {
+                return 3;
+            } else {
+                return 2;
+            }
+        } else {
+            return 1
+        }
+    },
+
+    showExam2: function(group) {
+        return group.exam2 !== "";
+    },
+
+    showExam3: function(group) {
+        return group.exam3 !== "";
+    },
+
     docType: function(docTypeId) {
         switch (docTypeId) {
             case "1":

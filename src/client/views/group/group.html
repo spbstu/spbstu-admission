@@ -34,17 +34,21 @@
             <th data-field="docsCount" rowspan="2">Приоритет</th>
             {{/if}}
             <th data-field="docsCount" rowspan="2">Баллы</th>
-            <th data-field="docsCount" colspan="3" class="center">Баллы по предметам</th>
-            <th data-field="docsCount" rowspan="2">Баллы за инд. дост-я</th>
+            <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
+            <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
             <th data-field="docsCount" rowspan="2">Тип документа</th>
             {{#if showRecommendation group}}
             <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
             {{/if}}
         </tr>
         <tr>
-            <th>{{ group.exam1 }}</th>
-            <th>{{ group.exam2 }}</th>
-            <th>{{ group.exam3 }}</th>
+            <th class="center">{{ group.exam1 }}</th>
+            {{#if showExam2 group }}
+            <th class="center">{{ group.exam2 }}</th>
+            {{/if}}
+            {{#if showExam3 group }}
+            <th class="center">{{ group.exam3 }}</th>
+            {{/if}}
         </tr>
         </thead>
         <tbody>
@@ -57,8 +61,12 @@
             {{/if}}
             <td class="center">{{totalScore}}</td>
             <td class="center">{{score1}}</td>
+            {{#if showExam2 group }}
             <td class="center">{{score2}}</td>
+            {{/if}}
+            {{#if showExam3 group }}
             <td class="center">{{score3}}</td>
+            {{/if}}
             <td class="center">{{additionalScore}}</td>
             <td>{{docType documentType}}</td>
             {{#if showRecommendation group}}
