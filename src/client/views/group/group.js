@@ -38,5 +38,9 @@ Template.Group.helpers({
             case "0":
                 return "Копия";
         }
+    },
+
+    showPriority: function() {
+        return currentContestGroup.get() === 'Общий конкурс';
     }
 });
