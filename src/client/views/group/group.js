@@ -15,17 +15,14 @@ Template.Group.helpers({
         // Todo: Перевести на настройки из SiteSettings
         //return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
         return Ratings.find({
-            groupId: params.groupId.toString(), contestType: contestGroupMap.get(currentContestGroup.get()).toString()
-        })
+            groupId: params.groupId.toString(),
+            contestType: contestGroupMap.get(currentContestGroup.get()).toString()
+        }, {rating: 1})
             .map(function(item, index) {
-                item.index1 = index + 1;
                 item.totalScore = sum(item.score1, item.score2, item.score3, item.additionalScore);
 
                 return item;
-            }.bind(this))
-            .sort(function(a, b) {
-                return b.totalScore - a.totalScore;
-            });
+            }.bind(this));
     },
 
     group: function() {
