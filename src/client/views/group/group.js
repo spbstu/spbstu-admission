@@ -80,31 +80,32 @@ Template.Group.helpers({
         return group.semiLimit > 0;
     },
 
-    recommendation: function(recommendationType) {
+    recommendation: function(recommendationType, gender) {
         switch (recommendationType) {
             case '0':
                 return '';
                 break;
             case '1':
-                return 'попадает в процент зачисления по проходному баллу';
+                return 'да';
                 break;
             case '2':
-                return 'попадает в процент зачисления по полупроходному баллу';
+                return 'да, полупроходной балл';
                 break;
             case '3':
-                return 'рекомендован по более высокому приоритету';
+                return 'проходит по более высокому приоритету';
                 break;
             case '4':
-                return 'зачислен в первой волне';
+                if (gender === 'ж') {
+                    return 'зачислена по более низкому приоритету';
+                } else {
+                    return 'зачислен по более низкому приоритету';
+                }
                 break;
             case '5':
-                return 'попадает в процент зачисления по проходному баллу и попадает в список по более высокому приоритету'
+                return '';
                 break;
             case '6':
-                return 'попадает в процент зачисления по полупроходному баллу и попадает в список по более высокому приоритету'
-                break;
-            case '7':
-                return 'отказ от участия в конкурсе';
+                return 'отказ от зачисления';
                 break;
         }
     }
