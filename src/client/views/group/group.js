@@ -52,7 +52,7 @@ Template.Group.helpers({
         var exceptGroups = [520, 521];
 
         return group.paymentForm.toLowerCase() == 'бюджет'
-            || exceptGroups.indexOf(group.groupId) !== -1
+            || exceptGroups.indexOf(Number(group.groupId)) !== -1
             || Date.now() > new Date(2015, 7, 30); // Todo: Replace with SiteSettings property
     },
 
