@@ -14,9 +14,27 @@ getGroups = function() {
         // filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()}),
         //groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
         groupsParams = {sort: {faculty: 1, title: 1}},
+        faculties = _.uniq(Groups.find({}, {
+            sort: {
+                faculty: 1
+            },
+            fields: {
+                faculty: true
+            }
+        })
+            .fetch()
+            .map(function(item) {
+                return item.faculty;
+            }), true)
+            .map(function(item) {
+                return {
+                    faculty: item,
+                    groups: []
+                }
+            }),
         groups = Groups.find(filter, groupsParams).fetch();
 
-    return _.chain(groups)
+    _.chain(groups)
         .map(function(item) {
             // Todo: Перевести на настройки из SiteSettings
             //item.isActive = item.applicationsCount > 0;
@@ -27,15 +45,17 @@ getGroups = function() {
         .groupBy(function(item) {
             return item.faculty;
         })
-        .reduce(function(memo, val, key) {
-            memo.push({
-                faculty: key,
-                groups: val
+        .forEach(function(val, key) {
+            var faculty = _.find(faculties, function(item) {
+                return item.faculty === key;
             });
 
-            return memo;
-        }, [])
-        .value();
+            if (faculty) {
+                faculty.groups = faculty.groups.concat(val);
+            }
+        });
+
+    return faculties;
 };
 
 Template.Statistic.helpers({
@@ -49,6 +69,9 @@ Template.Statistic.helpers({
     pageTitle: function() {
         // return 'Статистика принятых заявлений'
         return 'Рейтинг абитуриентов';
+    },
+    hasGroups: function(groups) {
+        return groups.length > 0;
     }
 });
 

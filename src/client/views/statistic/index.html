@@ -21,20 +21,30 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {{#each groups}}
-                        <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
-                            <td>{{title}}</td>
-                            <td>{{educationForm}}</td>
-                            <td>{{paymentForm}}</td>
-                            <td>{{educationLevel}}</td>
+                        {{#if hasGroups groups }}
+                            {{#each groups}}
+                            <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
+                                <td>{{title}}</td>
+                                <td>{{educationForm}}</td>
+                                <td>{{paymentForm}}</td>
+                                <td>{{educationLevel}}</td>
 
-                            {{#if showCounters}}
-                            <td class="table-int">{{planned}}</td>
-                            <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
-                            <td class="table-int">{{docsCount}}</td>
-                            {{/if}}
-                        </tr>
-                        {{/each}}
+                                {{#if showCounters}}
+                                <td class="table-int">{{planned}}</td>
+                                <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
+                                <td class="table-int">{{docsCount}}</td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        {{else}}
+                            <tr>
+                                {{#if showCounters}}
+                                <td colspan="7">Не найдено групп, соответствующих критерию фильтра</td>
+                                {{else}}
+                                <td colspan="4">Не найдено групп, соответствующих критерию фильтра</td>
+                                {{/if}}
+                            </tr>
+                        {{/if}}
                         </tbody>
                     </table>
                 </div>
