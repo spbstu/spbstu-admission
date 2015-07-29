@@ -15,6 +15,23 @@ function FileUploadHandler(event, template, Collection) {
     });
 }
 
+function updateSiteSettings(key, value) {
+    var doc = {},
+        lookup = {},
+        existDoc;
+
+    lookup[key] = {$exists: true};
+    existDoc = SiteSettings.findOne(lookup);
+
+    doc[key] = value;
+
+    if (existDoc) {
+        SiteSettings.update({_id: existDoc._id}, {$set: doc});
+    } else {
+        SiteSettings.insert(doc);
+    }
+}
+
 Template.BackstageUpload.events({
     'change #groups': function(event, template) {
         FileUploadHandler(event, template, GroupsFiles);
@@ -34,6 +51,10 @@ Template.BackstageUpload.events({
 
     'change #rating-list': function(event, template) {
         FileUploadHandler(event, template, RatingFiles);
+    },
+
+    'change #showContestGroups': function(event, template) {
+        updateSiteSettings('showContestGroups', event.target.checked);
     }
 });
 
@@ -71,5 +92,16 @@ Template.BackstageUpload.helpers({
     },
     ratingsProgress: function() {
         return _getProgress('ratings');
+    },
+    showContestGroupsСhecked: function() {
+        var settings = SiteSettings.findOne({'showContestGroups': {$exists: true}});
+
+        if (settings) {
+            if (settings['showContestGroups'] == true) {
+                return 'checked';
+            }
+        } else {
+            return 'checked';
+        }
     }
 });

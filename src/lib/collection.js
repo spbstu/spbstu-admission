@@ -32,8 +32,8 @@ Abiturients.deny(denyBase);
 Ratings.allow(allowBase);
 Ratings.deny(denyBase);
 
-SiteSettings.allow(allowBase);
 SiteSettings.deny(denyBase);
+SiteSettings.allow(allowBase);
 
 FSStore = new FS.Store.FileSystem("files");
 

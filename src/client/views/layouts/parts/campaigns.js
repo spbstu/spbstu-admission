@@ -1,6 +1,12 @@
 Template.Campaigns.helpers({
     campaigns: function() {
-        return contestGroups.get();
+        var show = SiteSettings.findOne({'showContestGroups': {$exists: true}});
+
+        if (show !== undefined && show['showContestGroups'] === false) {
+            return [];
+        } else {
+            return contestGroups.get();
+        }
         //return campaigns.get();
     },
 
