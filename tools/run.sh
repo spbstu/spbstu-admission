@@ -16,6 +16,7 @@ export MONGO_URL=mongodb://localhost:27017/admission
 # The domain name as configured previously as server_name in nginx
 # export ROOT_URL=http://192.168.245.66
 export ROOT_URL=http://admission.spbstu.ru
+export DISABLE_WEBSOCKETS=true Meteor
 # optional JSON config - the contents of file specified by passing "--settings" parameter to meteor command in development mode
 # export METEOR_SETTINGS='{ "somesetting": "someval", "public": { "othersetting": "anothervalue" } }'
 # this is optional: http://docs.meteor.com/#email
