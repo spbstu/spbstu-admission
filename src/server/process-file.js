@@ -1,13 +1,25 @@
-function updateUploadProgress(collection, value) {
+function updateProgressValue(collection, value) {
     uploadStatus.update({name: collection}, {$set: {name: collection, value: value}}, {upsert: true});
 }
 
 function startUploadProgress(collection) {
-    updateUploadProgress(collection, 'Обработка началась');
+    updateProgressValue(collection, 'Загрузка завершена');
+}
+
+function startProcessProgress(collection) {
+    updateProgressValue(collection, 'Обработка началась');
 }
 
 function finishUploadProgress(collection) {
-    updateUploadProgress(collection, 'Обработка завершена');
+    updateProgressValue(collection, 'Обработка завершена');
+
+    Meteor.setTimeout(function() {
+        clearUploadProgress(collection);
+    }, 3000);
+}
+
+function failUploadProgress(collection) {
+    updateProgressValue(collection, 'Ошибка обработки файла');
 
     Meteor.setTimeout(function() {
         clearUploadProgress(collection);
@@ -15,7 +27,7 @@ function finishUploadProgress(collection) {
 }
 
 function clearUploadProgress(collection) {
-    updateUploadProgress(collection, false);
+    updateProgressValue(collection, false);
 }
 
 function storedHandlerFactory(collectionName) {
@@ -37,6 +49,24 @@ function storedHandlerFactory(collectionName) {
 function storedHandler(fileObj, storeName) {
     var readStream = fileObj.createReadStream('data'),
         data = '';
+
+    switch (fileObj.collectionName) {
+        case 'groupsFiles':
+            startUploadProgress('groups');
+            break;
+        case 'ratingGroupsFiles':
+            startUploadProgress('groups');
+            break;
+        case 'countersFiles':
+            startUploadProgress('counters');
+            break;
+        case 'abiturientsFiles':
+            startUploadProgress('abiturients');
+            break;
+        case 'ratingFiles':
+            startUploadProgress('ratings');
+            break;
+    }
 
     readStream.on('data', Meteor.bindEnvironment(function (chunk) {
         data += iconv.fromEncoding(chunk, 'cp1251');
@@ -64,6 +94,8 @@ function storedHandler(fileObj, storeName) {
 }
 
 function processGroups(data) {
+    startProcessProgress('groups');
+
     var result = Papa.parse(data, {
             skipEmptyLines: true
         }),
@@ -71,7 +103,6 @@ function processGroups(data) {
         count = result.data.length - skipLines;
 
     if (result.errors.length === 0) {
-        startUploadProgress('groups');
 
         result.data
             .slice(skipLines)
@@ -94,16 +125,19 @@ function processGroups(data) {
                 Groups.insert(item);
                 var progress = Math.floor((index / count) * 100);
 
-                updateUploadProgress('groups', progress);
+                updateProgressValue('groups', progress);
             });
 
         finishUploadProgress('groups');
     } else {
+        failUploadProgress('groups');
         console.log('Errors caused', result.errors);
     }
 }
 
 function processRatingGroups(data) {
+    startProcessProgress('groups');
+
     var result = Papa.parse(data, {
             skipEmptyLines: true
         }),
@@ -112,7 +146,6 @@ function processRatingGroups(data) {
 
     if (result.errors.length === 0) {
         Groups.remove({});
-        startUploadProgress('groups');
 
         result.data
             .slice(skipLines)
@@ -137,23 +170,25 @@ function processRatingGroups(data) {
                 Groups.insert(item);
                 var progress = Math.floor((index / count) * 100);
 
-                updateUploadProgress('groups', progress);
+                updateProgressValue('groups', progress);
             });
 
         finishUploadProgress('groups');
     } else {
+        failUploadProgress('groups');
         console.log('Errors caused', result.errors);
     }
 }
 
 function processCounters(data) {
+    startProcessProgress('counters');
+
     var result = Papa.parse(data, {
             skipEmptyLines: true
         }),
         skipLines = 1,
         count = result.data.length - skipLines;
 
-    startUploadProgress('counters');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
@@ -180,23 +215,25 @@ function processCounters(data) {
 
                 var progress = Math.floor((index / count) * 100);
 
-                updateUploadProgress('counters', progress);
+                updateProgressValue('counters', progress);
             });
 
         finishUploadProgress('counters');
     } else {
+        failUploadProgress('counters');
         console.log(result.errors);
     }
 }
 
 function processAbiturients(data) {
+    startProcessProgress('abiturients');
+
     var result = Papa.parse(data, {
             skipEmptyLines: true
         }),
         skipLines = 1,
         count = result.data.length - skipLines;
 
-    startUploadProgress('abiturients');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
@@ -236,16 +273,19 @@ function processAbiturients(data) {
 
                 var progress = Math.floor((index / count) * 100);
 
-                updateUploadProgress('abiturients', progress);
+                updateProgressValue('abiturients', progress);
             });
 
         finishUploadProgress('abiturients');
     } else {
+        failUploadProgress('abiturients');
         console.log(result.errors);
     }
 }
 
 function processRating(data) {
+    startProcessProgress('ratings');
+
     var result = Papa.parse(data, {
             skipEmptyLines: true
         }),
@@ -253,7 +293,6 @@ function processRating(data) {
         l = 0,
         count = result.data.length - skipLines;
 
-    startUploadProgress('ratings');
 
     if (result.errors.length === 0) {
         Ratings.remove({});
@@ -273,13 +312,14 @@ function processRating(data) {
                     break;
             }
 
-            updateUploadProgress('ratings', progress);
+            updateProgressValue('ratings', progress);
         });
 
         updateGroupRatingInfo();
 
         finishUploadProgress('ratings');
     } else {
+        failUploadProgress('ratings');
         console.log(result.errors);
     }
 }
@@ -341,7 +381,7 @@ function updateGroupRatingInfo() {
             count4: count4
         }});
 
-        updateUploadProgress('ratings', progress);
+        updateProgressValue('ratings', progress);
     });
 }
 
