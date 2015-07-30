@@ -32,6 +32,9 @@ Abiturients.deny(denyBase);
 Ratings.allow(allowBase);
 Ratings.deny(denyBase);
 
+uploadStatus.deny(denyBase);
+uploadStatus.allow(allowBase);
+
 SiteSettings.deny(denyBase);
 SiteSettings.allow(allowBase);
 
@@ -53,4 +56,6 @@ RatingFiles = new FS.Collection("ratingFiles", {
     stores: [FSStore]
 });
 
-uploadStatus.update({}, {$set: {value: false}});
+uploadStatus.find({}).forEach(function(doc) {
+    uploadStatus.update({_id: doc._id}, {$set: {value: false}});
+});
