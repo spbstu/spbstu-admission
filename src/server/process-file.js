@@ -259,7 +259,7 @@ function processRating(data) {
         Ratings.remove({});
 
         result.data.forEach(function(item, index) {
-            var progress = Math.floor((index / count) * 100);
+            var progress = Math.floor((index / count) * 50);
 
             switch (item.length) {
                 case 1:
@@ -324,11 +324,15 @@ function updateRating(dataList) {
 }
 
 function updateGroupRatingInfo() {
-    Groups.find({}).forEach(function(group) {
+    var count;
+
+    Groups.find({}).forEach(function(group, index, collection) {
         var count1 = Ratings.find({groupId: group.groupId, contestType: "1"}).count(),
             count2 = Ratings.find({groupId: group.groupId, contestType: "2"}).count(),
             count3 = Ratings.find({groupId: group.groupId, contestType: "3"}).count(),
-            count4 = Ratings.find({groupId: group.groupId, contestType: "4"}).count();
+            count4 = Ratings.find({groupId: group.groupId, contestType: "4"}).count(),
+            count = count || collection.count(),
+            progress = 50 + Math.floor((index / count) * 50);
 
         Groups.update({_id: group._id}, {$set: {
             count1: count1,
@@ -336,6 +340,8 @@ function updateGroupRatingInfo() {
             count3: count3,
             count4: count4
         }});
+
+        updateUploadProgress('ratings', progress);
     });
 }
 
