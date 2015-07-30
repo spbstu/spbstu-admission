@@ -52,3 +52,5 @@ AbiturientsFiles = new FS.Collection("abiturientsFiles", {
 RatingFiles = new FS.Collection("ratingFiles", {
     stores: [FSStore]
 });
+
+uploadStatus.update({}, {$set: {value: false}});

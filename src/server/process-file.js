@@ -1,7 +1,21 @@
 function updateUploadProgress(collection, value) {
-    value = value || 0;
-
     uploadStatus.update({name: collection}, {$set: {name: collection, value: value}}, {upsert: true});
+}
+
+function startUploadProgress(collection) {
+    updateUploadProgress(collection, 'Обработка началась');
+}
+
+function finishUploadProgress(collection) {
+    updateUploadProgress(collection, 'Обработка завершена');
+
+    Meteor.setTimeout(function() {
+        clearUploadProgress(collection);
+    }, 3000);
+}
+
+function clearUploadProgress(collection) {
+    updateUploadProgress(collection, false);
 }
 
 function storedHandlerFactory(collectionName) {
@@ -57,7 +71,7 @@ function processGroups(data) {
         count = result.data.length - skipLines;
 
     if (result.errors.length === 0) {
-        updateUploadProgress('groups');
+        startUploadProgress('groups');
 
         result.data
             .slice(skipLines)
@@ -83,7 +97,7 @@ function processGroups(data) {
                 updateUploadProgress('groups', progress);
             });
 
-        updateUploadProgress('groups');
+        finishUploadProgress('groups');
     } else {
         console.log('Errors caused', result.errors);
     }
@@ -98,7 +112,7 @@ function processRatingGroups(data) {
 
     if (result.errors.length === 0) {
         Groups.remove({});
-        updateUploadProgress('groups');
+        startUploadProgress('groups');
 
         result.data
             .slice(skipLines)
@@ -126,7 +140,7 @@ function processRatingGroups(data) {
                 updateUploadProgress('groups', progress);
             });
 
-        updateUploadProgress('groups');
+        finishUploadProgress('groups');
     } else {
         console.log('Errors caused', result.errors);
     }
@@ -139,7 +153,7 @@ function processCounters(data) {
         skipLines = 1,
         count = result.data.length - skipLines;
 
-    updateUploadProgress('counters');
+    startUploadProgress('counters');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
@@ -169,7 +183,7 @@ function processCounters(data) {
                 updateUploadProgress('counters', progress);
             });
 
-        updateUploadProgress('counters');
+        finishUploadProgress('counters');
     } else {
         console.log(result.errors);
     }
@@ -182,7 +196,7 @@ function processAbiturients(data) {
         skipLines = 1,
         count = result.data.length - skipLines;
 
-    updateUploadProgress('abiturients');
+    startUploadProgress('abiturients');
 
     if (result.errors.length === 0) {
         // TODO: Обработка ошибок. Наверно что-то типа промисов
@@ -225,7 +239,7 @@ function processAbiturients(data) {
                 updateUploadProgress('abiturients', progress);
             });
 
-        updateUploadProgress('abiturients');
+        finishUploadProgress('abiturients');
     } else {
         console.log(result.errors);
     }
@@ -239,7 +253,7 @@ function processRating(data) {
         l = 0,
         count = result.data.length - skipLines;
 
-    updateUploadProgress('ratings');
+    startUploadProgress('ratings');
 
     if (result.errors.length === 0) {
         Ratings.remove({});
@@ -264,7 +278,7 @@ function processRating(data) {
 
         updateGroupRatingInfo();
 
-        updateUploadProgress('ratings');
+        finishUploadProgress('ratings');
     } else {
         console.log(result.errors);
     }

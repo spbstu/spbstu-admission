@@ -77,7 +77,13 @@ Template.BackstageUpload.rendered = function() {
 };
 
 function _getProgress(collection) {
-    return uploadStatus.findOne({name: collection}) && uploadStatus.findOne({name: collection})['value'];
+    var value = uploadStatus.findOne({name: collection}) && uploadStatus.findOne({name: collection})['value'];
+
+    if (_.isNumber(value)) {
+        return 'Обработано ' + value + '%';
+    } else {
+        return value;
+    }
 }
 
 Template.BackstageUpload.helpers({
