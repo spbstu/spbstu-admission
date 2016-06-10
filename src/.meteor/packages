@@ -4,20 +4,34 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 insecure
 accounts-ui
 accounts-password
 materialize:materialize@=0.96.1
 useraccounts:core
 useraccounts:materialize
-iron:router
+useraccounts:iron-routing
 erasaur:meteor-lodash
 wilddeer:stylus-autoprefixer
 harrison:papa-parse
 cfs:standard-packages
 cfs:filesystem
-mrt:iconv-lite
 reactive-var
 sacha:spin
 reactive-dict
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+standard-minifier-css
+standard-minifier-js
+gbhrdt:iconv-lite
