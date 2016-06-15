@@ -7,39 +7,49 @@ function getContestGroupFilter() {
     return filter;
 }
 
+showRatings = function() {
+    var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
+    return settings && settings.showRatings
+}
+
 getGroups = function() {
-    var controller = Iron.controller(),
-        filter = _.extend(groupFilter.get(), getContestGroupFilter()),
-        // Todo: Перевести на настройки из SiteSettings
-        // filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()}),
-        //groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}},
-        groupsParams = {sort: {faculty: 1, title: 1}},
-        faculties = _.uniq(Groups.find({}, {
-            sort: {
-                faculty: 1
-            },
-            fields: {
-                faculty: true
+    var controller = Iron.controller()
+    var filter = _.extend(groupFilter.get(), getContestGroupFilter())
+    var groupsParams = {sort: {faculty: 1, title: 1}}
+    
+    var _showRatings = showRatings()
+    
+    if(!_showRatings) {
+        filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()})
+        groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}}
+    }
+    var faculties = _.uniq(Groups.find({}, {
+        sort: {
+            faculty: 1
+        },
+        fields: {
+            faculty: true
+        }
+    })
+        .fetch()
+        .map(function(item) {
+            return item.faculty;
+        }), true)
+        .map(function(item) {
+            return {
+                faculty: item,
+                groups: []
             }
         })
-            .fetch()
-            .map(function(item) {
-                return item.faculty;
-            }), true)
-            .map(function(item) {
-                return {
-                    faculty: item,
-                    groups: []
-                }
-            }),
-        groups = Groups.find(filter, groupsParams).fetch();
+    var groups = Groups.find(filter, groupsParams).fetch();
 
     _.chain(groups)
         .map(function(item) {
-            // Todo: Перевести на настройки из SiteSettings
-            //item.isActive = item.applicationsCount > 0;
-            item.isActive = true;
-
+            if(!_showRatings) {
+                item.isActive = item.applicationsCount > 0;
+            } else {
+                item.isActive = true;
+            }
             return item;
         })
         .groupBy(function(item) {
@@ -62,13 +72,16 @@ Template.Statistic.helpers({
     rows: function() {
         return getGroups();
     },
+    showRatings: showRatings,
     showCounters: function() {
-        // Todo: Перевести на настройки из бекстейджа
-        return false;
+        return !showRatings();
     },
     pageTitle: function() {
-        // return 'Статистика принятых заявлений'
-        return 'Рейтинг абитуриентов';
+        if(!showRatings()) {
+            return 'Статистика принятых заявлений'
+        } else {
+            return 'Рейтинг абитуриентов';
+        }
     },
     hasGroups: function(groups) {
         return groups.length > 0;

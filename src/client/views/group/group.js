@@ -7,13 +7,19 @@ function sum() {
     }, 0);
 }
 
+showRatings = function() {
+    var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
+    return settings && settings.showRatings
+}
+
 Template.Group.helpers({
     persons: function() {
-        var controller = Iron.controller(),
-            params = controller.getParams();
+        var controller = Iron.controller();
+        var params = controller.getParams();
 
-        // Todo: Перевести на настройки из SiteSettings
-        //return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
+        if(!showRatings()) {
+            return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
+        }
         return Ratings.find({
             groupId: params.groupId.toString(),
             contestType: contestGroupMap.get(currentContestGroup.get()).toString()
@@ -25,6 +31,8 @@ Template.Group.helpers({
             }.bind(this));
     },
 
+    showRatings: showRatings,
+    
     group: function() {
         var controller = Iron.controller(),
             params = controller.getParams();

@@ -51,7 +51,8 @@ Router.map(function() {
         waitOn: function() {
             return [
                 Meteor.subscribe('ratings', this.params.groupId),
-                Meteor.subscribe('groupInfo', this.params.groupId)
+                Meteor.subscribe('groupInfo', this.params.groupId),
+                Meteor.subscribe('abiturients', this.params.groupId)
                 ];
         }
     });

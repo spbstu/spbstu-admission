@@ -1,5 +1,14 @@
+showRatings = function() {
+    var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
+    return settings && settings.showRatings
+}
+
 Template.Campaigns.helpers({
     campaigns: function() {
+        if(!showRatings()) {
+            return campaigns.get();
+        }
+        
         var show = SiteSettings.findOne({'showContestGroups': {$exists: true}});
 
         if (show !== undefined && show['showContestGroups'] === false) {
@@ -7,11 +16,13 @@ Template.Campaigns.helpers({
         } else {
             return contestGroups.get();
         }
-        //return campaigns.get();
     },
 
+
     activeClassName: function(campaign) {
-        //return campaign === currentCampaign.get() ? 'active' : '';
+        if(!showRatings()) {
+            return campaign === currentCampaign.get() ? 'active' : '';
+        }
         return campaign === currentContestGroup.get() ? 'active' : '';
     }
 });

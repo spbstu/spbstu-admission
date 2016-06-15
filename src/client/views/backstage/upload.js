@@ -55,6 +55,10 @@ Template.BackstageUpload.events({
 
     'change #showContestGroups': function(event, template) {
         updateSiteSettings('showContestGroups', event.target.checked);
+    },
+    
+    'change #showRatings': function(event, template) {
+        updateSiteSettings('showRatings', event.target.checked);
     }
 });
 
@@ -104,6 +108,17 @@ Template.BackstageUpload.helpers({
 
         if (settings) {
             if (settings['showContestGroups'] == true) {
+                return 'checked';
+            }
+        } else {
+            return 'checked';
+        }
+    },
+    showRatingsСhecked: function() {
+        var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
+
+        if (settings) {
+            if (settings['showRatings'] == true) {
                 return 'checked';
             }
         } else {
