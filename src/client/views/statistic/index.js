@@ -64,8 +64,8 @@ getGroups = function() {
                 faculty.groups = faculty.groups.concat(val);
             }
         });
-
-    return faculties;
+    
+    return _.filter(faculties, f => f.groups.length > 0);
 };
 
 Template.Statistic.helpers({
