@@ -1,6 +1,6 @@
 # Приложение для вывода информации о ходе приёмной кампании в СПбПУ Петра Великого
 
-[![Build Status](https://travis-ci.org/h4/spbstu-admission.svg?branch=master)](https://travis-ci.org/h4/spbstu-admission)
+[![Build Status](https://travis-ci.org/spbstu/spbstu-admission.svg?branch=master)](https://travis-ci.org/spbstu/spbstu-admission)
 
 ## Зависимости
 

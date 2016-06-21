@@ -1,6 +1,6 @@
 var http = require('https'),
     util = require('util'),
-    repoName = 'h4/spbstu-admission',
+    repoName = 'spbstu/spbstu-admission',
     endpointPath = util.format('/repos/%s/releases/latest', repoName),
     req,
     result = '';
