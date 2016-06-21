@@ -14,4 +14,4 @@ deploy:
   file: "$TRAVIS_BUILD_DIR/build/src.tar.gz"
   on:
     tags: true
-    repo: h4/spbstu-admission
+    repo: spbstu/spbstu-admission
