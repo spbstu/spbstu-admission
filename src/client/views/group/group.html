@@ -93,24 +93,26 @@
             <thead>
             <tr>
                 <th data-field="num">№</th>
-                <th data-field="fullname">Фамилия Имя Отчество</th>
-                <th data-field="docsCount">Приоритет</th>
+                <th data-field="fullname">ФИО</th>
+                <th data-field="docsCount">Сдаёт вступительные испытания</th>
                 <th data-field="docsCount">Тип документа</th>
-                <th data-field="applicationsCount">Форма конкурса</th>
+                <th data-field="docsCount">Заявление о согласии</th>
+                <th data-field="docsCount">Отказ в приёме документов</th>
             </tr>
             </thead>
             <tbody>
             {{#each persons}}
             <tr class="{{#if isFirst}}first{{/if}}" >
                 <td>{{order}}</td>
-                <th>{{lastName}} {{firstName}} {{patronimusName}}</th>
-                <td>{{priority}}</td>
+                <td>{{fio}}</td>
+                <td>{{examType}}</td>
                 <td>{{documentType}}</td>
-                <td>{{contestForm}}</td>
+                <td>{{agreement}}</td>
+                <td>{{refuse}}</td>
             </tr>
             {{else}}
             <tr>
-                <td colspan="5">Записей не найдено</td>
+                <td colspan="6">Записей не найдено</td>
             </tr>
             {{/each}}
             </tbody>

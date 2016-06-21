@@ -37,10 +37,6 @@ Template.BackstageUpload.events({
         FileUploadHandler(event, template, GroupsFiles);
     },
 
-    'change #counters': function(event, template) {
-        FileUploadHandler(event, template, CountersFiles);
-    },
-
     'change #abiturients': function(event, template) {
         FileUploadHandler(event, template, AbiturientsFiles);
     },
@@ -93,9 +89,6 @@ function _getProgress(collection) {
 Template.BackstageUpload.helpers({
     groupsProgress: function() {
         return _getProgress('groups');
-    },
-    countersProgress: function() {
-        return _getProgress('counters');
     },
     abiturientsProgress: function() {
         return _getProgress('abiturients');

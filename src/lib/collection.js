@@ -46,9 +46,6 @@ GroupsFiles = new FS.Collection("groupsFiles", {
 RatingGroupsFiles = new FS.Collection("ratingGroupsFiles", {
     stores: [FSStore]
 });
-CountersFiles = new FS.Collection("countersFiles", {
-    stores: [FSStore]
-});
 AbiturientsFiles = new FS.Collection("abiturientsFiles", {
     stores: [FSStore]
 });

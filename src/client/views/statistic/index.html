@@ -5,44 +5,38 @@
             <div class="collapsible-header"><h5 class="faculty-name">{{faculty}}</h5></div>
             <div class="collapsible-body">
                 <div class="data-table-wrapper">
-                    <table class="data-table striped">
+                    <table class="data-table striped group-table">
                         <thead>
                         <tr>
-                            <th data-field="title">Направление</th>
-                            <th data-field="form">Форма обучения</th>
-                            <th data-field="payment">Бюджет/Контракт</th>
-                            <th data-field="graduate">Базовое образование</th>
+                            <th data-field="title" rowspan='2'>Направление подготовки (специальность)</th>
+                            <th data-field="form" rowspan='2'>Форма обучения</th>
+                            <th data-field="payment" rowspan='2'>Бюджет/Контракт</th>
 
-                            {{#if showCounters}}
-                            <th data-field="planned">План</th>
-                            <th data-field="applicationsCount">Заявлений</th>
-                            <th data-field="docsCount">Оригиналов</th>
-                            {{/if}}
+                            <th data-field="planned" rowspan='2'>План приёма</th>
+                            <th data-field="applicationsCount" rowspan='2'>Заявлений</th>
+                            <th data-field="docsCount" colspan='2'>Оригиналов</th>
+                        </tr>
+                        <tr>
+                            <th data-field="docsCount">Всего</th>
+                            <th data-field="docsCount">Заявлений о согласии</th>
                         </tr>
                         </thead>
                         <tbody>
                         {{#if hasGroups groups }}
                             {{#each groups}}
                             <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
-                                <td>{{title}}</td>
+                                <td style='width:50%'>{{title}}</td>
                                 <td>{{educationForm}}</td>
                                 <td>{{paymentForm}}</td>
-                                <td>{{educationLevel}}</td>
-
-                                {{#if showCounters}}
                                 <td class="table-int">{{planned}}</td>
                                 <td class="table-int"><span class="{{#if warn}}warn z-depth-1 red darken-4{{/if}}">{{applicationsCount}}</span></td>
                                 <td class="table-int">{{docsCount}}</td>
-                                {{/if}}
+                                <td class="table-int">{{agreementsCount}}</td>
                             </tr>
                             {{/each}}
                         {{else}}
                             <tr>
-                                {{#if showCounters}}
                                 <td colspan="7">Не найдено групп, соответствующих критерию фильтра</td>
-                                {{else}}
-                                <td colspan="4">Не найдено групп, соответствующих критерию фильтра</td>
-                                {{/if}}
                             </tr>
                         {{/if}}
                         </tbody>
