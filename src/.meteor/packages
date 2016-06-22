@@ -36,3 +36,4 @@ standard-minifier-css
 standard-minifier-js
 gbhrdt:iconv-lite
 ecmascript
+momentjs:moment

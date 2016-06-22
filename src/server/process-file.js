@@ -12,7 +12,8 @@ function startProcessProgress(collection) {
 
 function finishUploadProgress(collection) {
     updateProgressValue(collection, 'Обработка завершена');
-
+    updateSiteSettings('lastUpdate', moment().format('DD-MM-YYYY HH:mm'));
+    
     Meteor.setTimeout(function() {
         clearUploadProgress(collection);
     }, 3000);
@@ -44,7 +45,6 @@ function storedHandlerFactory(collectionName) {
         storedHandler.apply(this, arguments);
     }
 }
-
 
 function storedHandler(fileObj, storeName) {
     var readStream = fileObj.createReadStream('data'),
@@ -203,7 +203,7 @@ function processGroups(data) {
 
                 updateProgressValue('groups', progress);
             });
-
+            
         finishUploadProgress('groups');
     } else {
         failUploadProgress('groups');
@@ -312,6 +312,7 @@ function processAbiturients(data) {
             });
 
         finishUploadProgress('abiturients');
+        updateTime();
     } else {
         failUploadProgress('abiturients');
         console.log(result.errors);
