@@ -97,6 +97,8 @@ function processGroups(data) {
         count = result.data.length - skipLines;
 
     if (result.errors.length === 0) {
+        Groups.remove({})
+        
         const faculty = {
             '1': 'Инженерно-строительный институт',
             '2': 'Институт энергетики и транспортных систем',
@@ -140,14 +142,17 @@ function processGroups(data) {
             '3': 'Колледж',
             '4': 'Аспирантура'
         }
+        
         result.data
             .slice(skipLines)
             .map(function (item) {
+                var fcl = faculty[item[1]] || admissionLevel[item[7]]
+                if(!faculty) {}
                 return {
                     // UID конкурсной группы
                     groupId: item[0],
-                    // Институт
-                    faculty: faculty[item[1]],
+                    // Институт, если не указан то исп. название приёмной кампании
+                    faculty: fcl,
                     // Название группы
                     title: item[2],
                     // Форма обучения
