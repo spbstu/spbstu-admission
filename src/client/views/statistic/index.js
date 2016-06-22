@@ -85,6 +85,11 @@ Template.Statistic.helpers({
     },
     hasGroups: function(groups) {
         return groups.length > 0;
+    },
+    
+    needProgram: function() {
+        var campaign = currentCampaign.get()
+        return campaign === 'Основной прием' || campaign === 'Крым'
     }
 });
 
