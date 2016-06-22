@@ -312,7 +312,6 @@ function processAbiturients(data) {
             });
 
         finishUploadProgress('abiturients');
-        updateTime();
     } else {
         failUploadProgress('abiturients');
         console.log(result.errors);
