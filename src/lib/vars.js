@@ -1,4 +1,4 @@
-campaigns = new ReactiveVar(['Основной прием', 'Колледж', 'Крым', 'Аспирантура']);
+campaigns = new ReactiveVar(['Основной прием', 'Крым', 'Колледж', 'Аспирантура']);
 contestGroups = new ReactiveVar(['Общий конкурс', 'Без вступительных испытатаний', 'Особое право', 'Целевой приём']);
 
 currentCampaign = new ReactiveVar('Основной прием', function(oldVal, newVal) {
