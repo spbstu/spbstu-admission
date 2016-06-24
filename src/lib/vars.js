@@ -47,20 +47,37 @@ function Filter(name, title, values, initial) {
 }
 
 groupFilter = {
-    filters: [
-        new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная', 'Очно-Заочная'], 'Очная'),
-        new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
-        new Filter('program', 'Программа', ['Бакалавриат/Специалитет', 'Магистратура', 'Среднее профессиональное образование', 'Аспирантура'], 'Бакалавриат/Специалитет'),
-    ],
+    filters: {
+        'Основной прием': [
+            new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная', 'Очно-Заочная'], 'Очная'),
+            new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
+            new Filter('program', 'Программа', ['Бакалавриат/Специалитет', 'Магистратура'], 'Бакалавриат/Специалитет'),
+        ],
+        'Крым': [
+            new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная', 'Очно-Заочная'], 'Очная'),
+            new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
+            new Filter('program', 'Программа', ['Бакалавриат/Специалитет', 'Магистратура'], 'Бакалавриат/Специалитет'),
+        ],
+        'Колледж': [
+            new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная'], 'Очная'),
+            new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
+            new Filter('educationLevel', 'Базовое образование', ['Среднее профессиональное образование на базе 9 классов', 'Среднее профессиональное образование на базе 11 классов'], 'Среднее профессиональное образование на базе 9 классов'),
+        ],
+        'Аспирантура': [
+            new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная'], 'Очная'),
+            new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
+        ]
+    },
 
     reset: function() {
-        this.filters.forEach(function(filter) {
+        this.filters[currentCampaign.get()].forEach(function(filter) {
             filter.reset();
         });
     },
 
     get: function() {
-        return this.filters.reduce(function(acc, item) {
+        console.log(currentCampaign.get())
+        return this.filters[currentCampaign.get()].reduce(function(acc, item) {
             if (item.isChanged()) {
                 acc[ item.name ] = item.currentValue.get();
             }

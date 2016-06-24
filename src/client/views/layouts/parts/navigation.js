@@ -1,5 +1,9 @@
+function getGroupFilters() {
+    return groupFilter
+}
+
 function getFilters() {
-    return groupFilter;
+    return groupFilter.filters[currentCampaign.get()];
 }
 
 Template.Navigation.helpers({
@@ -21,7 +25,7 @@ Template.Navigation.events({
 
 Template.Navigation.rendered = function () {
     this.autorun(_.bind(function () {
-        getFilters(this.data).get();
+        getGroupFilters(this.data).get();
 
         Deps.afterFlush(function () {
             $('select').material_select();
