@@ -34,7 +34,7 @@ function Filter(name, title, values, initial) {
     };
 
     this.isChanged = function() {
-        return this.currentValue.get() !== this._initialValue;
+        return this.currentValue.get() !== '';
     };
 
     this.set = function(newValue) {
@@ -48,9 +48,9 @@ function Filter(name, title, values, initial) {
 
 groupFilter = {
     filters: [
-        new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная', 'Очно-Заочная']),
-        new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт']),
-        new Filter('program', 'Программа', ['Бакалавриат/Специалитет', 'Магистратура', 'Среднее профессиональное образование', 'Аспирантура']),
+        new Filter('educationForm', 'Форма обучения', ['Очная', 'Заочная', 'Очно-Заочная'], 'Очная'),
+        new Filter('paymentForm', 'Финансирование', ['Бюджет', 'Контракт'], 'Бюджет'),
+        new Filter('program', 'Программа', ['Бакалавриат/Специалитет', 'Магистратура', 'Среднее профессиональное образование', 'Аспирантура'], 'Бакалавриат/Специалитет'),
     ],
 
     reset: function() {
