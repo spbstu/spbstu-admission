@@ -86,6 +86,9 @@ Template.Statistic.helpers({
     hasGroups: function(groups) {
         return groups.length > 0;
     },
+    expandIfOnlyOneGroup: function(groups) {
+        return groups.length === 1 ? 'active' : '';
+    },
     
     needProgram: function() {
         var campaign = currentCampaign.get()
