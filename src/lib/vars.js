@@ -1,5 +1,5 @@
 campaigns = new ReactiveVar(['Основной прием', 'Крым', 'Колледж', 'Аспирантура']);
-contestGroups = new ReactiveVar(['Общий конкурс', 'Без вступительных испытатаний', 'Особое право', 'Целевой приём']);
+contestGroups = new ReactiveVar(['Общий конкурс', 'Особое право', 'Целевой приём']);
 
 currentCampaign = new ReactiveVar('Основной прием', function(oldVal, newVal) {
     return ! newVal || oldVal === newVal;
