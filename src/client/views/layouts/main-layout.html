@@ -12,8 +12,11 @@
                 <div class="title-wrapper left">
                 {{> yield "title"}}
                 </div>
-
-                {{> Campaigns }}
+                {{#if showCampaigns}}
+                    {{> Campaigns }}
+                {{else}}
+                    {{> ContestGroups }}
+                {{/if}}
             </div>
         </nav>
     </div>

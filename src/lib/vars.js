@@ -4,7 +4,6 @@ contestGroups = new ReactiveVar(['Общий конкурс', 'Без вступ
 currentCampaign = new ReactiveVar('Основной прием', function(oldVal, newVal) {
     return ! newVal || oldVal === newVal;
 });
-
 currentContestGroup = new ReactiveVar('Общий конкурс', function(oldVal, newVal) {
     return ! newVal || oldVal === newVal;
 });
@@ -15,6 +14,10 @@ contestGroupMap.set('Общий конкурс', 2);
 contestGroupMap.set('Без вступительных испытатаний', 1);
 contestGroupMap.set('Особое право', 3);
 contestGroupMap.set('Целевой приём', 4);
+
+titleFilter = new ReactiveVar('campaigns', function(oldVal, newVal) {
+    return ! newVal || oldVal === newVal;
+});
 
 function Filter(name, title, values, initial) {
     this._initialValue = initial || '';
@@ -76,7 +79,6 @@ groupFilter = {
     },
 
     get: function() {
-        console.log(currentCampaign.get())
         return this.filters[currentCampaign.get()].reduce(function(acc, item) {
             if (item.isChanged()) {
                 acc[ item.name ] = item.currentValue.get();

@@ -1,0 +1,7 @@
+<template name="ContestGroups">
+    <ul class="right hide-on-med-and-down campany-selector">
+        {{#each groups}}
+        <li class="{{activeClassName this}}"><a href="{{pathFor route='group' groupId=groupId contestGroup=this}}">{{this}}</a></li>
+        {{/each}}
+    </ul>
+</template>

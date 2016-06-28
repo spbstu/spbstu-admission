@@ -17,8 +17,10 @@ Template.Group.helpers({
         var controller = Iron.controller();
         var params = controller.getParams();
 
+        var contestGroupId = contestGroupMap.get(currentContestGroup.get()).toString()
+
         if(!showRatings()) {
-            return Abiturients.find({ groupId: params.groupId }, {sort: { order: 1 }});
+            return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
         }
         return Ratings.find({
             groupId: params.groupId.toString(),
@@ -37,7 +39,7 @@ Template.Group.helpers({
         var controller = Iron.controller(),
             params = controller.getParams();
 
-        return Groups.findOne({groupId: params.groupId});
+        return Groups.findOne({groupId: params.groupId, });
     },
 
     examCount: function(group) {

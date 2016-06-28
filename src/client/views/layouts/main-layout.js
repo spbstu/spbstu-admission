@@ -3,5 +3,9 @@ Template.MainLayout.helpers({
         var settings = SiteSettings.findOne({'lastUpdate': {$exists: true}});
 
         return settings && settings['lastUpdate'];
+    },
+    
+    showCampaigns: function() {
+        return titleFilter.get() === 'campaigns'
     }
 });

@@ -30,8 +30,8 @@ Router.map(function() {
             this.next();
         },
         onBeforeAction: function() {
-            currentContestGroup.set(this.params.campaignName);
             currentCampaign.set(this.params.campaignName);
+            titleFilter.set('campaigns')
             groupFilter.reset();
             this.next();
         },
@@ -44,9 +44,11 @@ Router.map(function() {
 
     this.route('group', {
         name: 'group',
-        path: '/group/:groupId',
+        path: '/group/:groupId/:contestGroup?',
         onBeforeAction: function() {
             $('body').addClass('inner-page');
+            currentContestGroup.set(this.params.contestGroup);
+            titleFilter.set('contestGroups')
             this.next();
         },
         waitOn: function() {
