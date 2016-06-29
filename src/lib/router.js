@@ -47,7 +47,11 @@ Router.map(function() {
         path: '/group/:groupId/:contestGroup?',
         onBeforeAction: function() {
             $('body').addClass('inner-page');
-            currentContestGroup.set(this.params.contestGroup);
+            if(this.params.contestGroup) {
+                currentContestGroup.set(this.params.contestGroup);
+            } else {
+                currentContestGroup.set('Общий конкурс');
+            }
             titleFilter.set('contestGroups')
             this.next();
         },
