@@ -12,7 +12,6 @@ function startProcessProgress(collection) {
 
 function finishUploadProgress(collection) {
     updateProgressValue(collection, 'Обработка завершена');
-    updateSiteSettings('lastUpdate', moment().format('DD-MM-YYYY HH:mm'));
     
     Meteor.setTimeout(function() {
         clearUploadProgress(collection);
@@ -46,7 +45,21 @@ function storedHandlerFactory(collectionName) {
     }
 }
 
+function updateTime(fileObj) {
+    //PlgroupsList-2016-06-27-210124
+    var re = /.*(\d\d\d\d-\d\d-\d\d-\d\d\d\d\d\d).*/i;
+    var filename = fileObj.original.name
+    var found = filename.match(re)
+    var date = moment()
+    if(found && found[1]) {
+        date = moment(found[1], 'YYYY-MM-DD-HHmmss')
+    }
+    
+    updateSiteSettings('lastUpdate', date.format('DD-MM-YYYY HH:mm'));
+}
+
 function storedHandler(fileObj, storeName) {
+    updateTime(fileObj)
     var readStream = fileObj.createReadStream('data'),
         data = '';
 
