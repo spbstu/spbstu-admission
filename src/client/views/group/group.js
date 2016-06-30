@@ -32,6 +32,11 @@ Template.Group.helpers({
                 return item;
             }.bind(this));
     },
+    personExamWarn: function(examType) {
+        if(examType === 'Без в/и (диплом не подтвержден)') {
+            return 'warn z-depth-1 red darken-4'
+        }
+    },
 
     showRatings: showRatings,
     

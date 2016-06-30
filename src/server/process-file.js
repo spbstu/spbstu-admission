@@ -285,7 +285,8 @@ function processAbiturients(data) {
         const examType = {
             '1': 'без в/и',
             '2': 'в/и в СПбПУ',
-            '3': 'ЕГЭ'
+            '3': 'ЕГЭ',
+            '4': 'Без в/и (диплом не подтвержден)'
         }
         const documentType = {
             '0': 'Оригинал',
