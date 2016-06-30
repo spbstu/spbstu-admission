@@ -1,0 +1,26 @@
+<template name='PhdGroup'>
+    <table class="data-table col s10 offset-s1 striped">
+        <thead>
+        <tr>
+            <th data-field="num">№</th>
+            <th data-field="fullname">ФИО</th>
+            <th data-field="docsCount">Приоритет</th>
+            <th data-field="docsCount">Тип документа</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each persons}}
+        <tr class="{{#if isFirst}}first{{/if}}" >
+            <td>{{order}}</td>
+            <td>{{fio}}</td>
+            <td>{{proirity}}</td>
+            <td>{{documentType}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="6">Записей не найдено</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>

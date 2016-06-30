@@ -89,35 +89,12 @@
     </h6>
     {{/contentFor}}
     {{else}}
-        <table class="data-table col s10 offset-s1 striped">
-            <thead>
-            <tr>
-                <th data-field="num">№</th>
-                <th data-field="fullname">ФИО</th>
-                <th data-field="docsCount">Сдаёт вступительные испытания</th>
-                <th data-field="docsCount">Тип документа</th>
-                <th data-field="docsCount">Заявление о согласии</th>
-                <th data-field="docsCount">Отказ в приёме документов</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each persons}}
-            <tr class="{{#if isFirst}}first{{/if}}" >
-                <td>{{order}}</td>
-                <td>{{fio}}</td>
-                <td><span class='{{personExamWarn examType}}'>{{examType}}</span></td>
-                <td>{{documentType}}</td>
-                <td>{{agreement}}</td>
-                <td>{{refuse}}</td>
-            </tr>
-            {{else}}
-            <tr>
-                <td colspan="6">Записей не найдено</td>
-            </tr>
-            {{/each}}
-            </tbody>
-        </table>
-
+        {{#if phd}}
+            {{> PhdGroup persons=persons}}
+        {{else}}
+            {{> MainCampaignGroup persons=persons}}
+        {{/if}}
+        
         {{#contentFor "title"}}
         <h6 class="group-title">
             {{group.faculty}}, {{group.title}}<br>

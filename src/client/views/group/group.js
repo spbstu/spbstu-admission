@@ -120,5 +120,9 @@ Template.Group.helpers({
                 return 'отказ от зачисления';
                 break;
         }
+    },
+    
+    phd: function() {
+        return currentCampaign.get() === 'Аспирантура'
     }
 });

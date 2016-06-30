@@ -1,4 +1,4 @@
-<template name="GroupOld">
+<template name='MainCampaignGroup'>
     <table class="data-table col s10 offset-s1 striped">
         <thead>
         <tr>
@@ -15,7 +15,7 @@
         <tr class="{{#if isFirst}}first{{/if}}" >
             <td>{{order}}</td>
             <td>{{fio}}</td>
-            <td>{{examType}}</td>
+            <td><span class='{{personExamWarn examType}}'>{{examType}}</span></td>
             <td>{{documentType}}</td>
             <td>{{agreement}}</td>
             <td>{{refuse}}</td>
@@ -27,11 +27,4 @@
         {{/each}}
         </tbody>
     </table>
-
-    {{#contentFor "title"}}
-    <h6 class="group-title">
-        {{group.faculty}}, {{group.title}}<br>
-        {{group.educationForm}}, {{group.paymentForm}}
-    </h6>
-    {{/contentFor}}
 </template>
