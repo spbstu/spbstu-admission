@@ -1,0 +1,40 @@
+<template name="College">
+    <table class="data-table striped group-table">
+        <thead>
+        <tr>
+            <th data-field="title" rowspan='2'>Направление подготовки (специальность)</th>
+            <th data-field="form" rowspan='2'>Форма обучения</th>
+            <th data-field="payment" rowspan='2'>Бюджет/Контракт</th>
+            <th data-field="planned" rowspan='2'>План приёма</th>
+            <th data-field="applicationsCount" colspan='2'>Заявлений</th>
+            <th data-field="docsCount" colspan='2'>Оригиналов</th>
+        </tr>
+        <tr>
+            <th data-field="docsCount">Всего</th>
+            <th data-field="docsCount">I приоритет</th>
+            <th data-field="docsCount">Всего</th>
+            <th data-field="docsCount">I приоритет</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#if hasGroups groups}}
+            {{#each groups}}
+            <tr class="data-row{{#if isActive}} data-row_active hoverable grey-text text-darken-4{{else}} grey-text text-darken-1{{/if}}" data-groupid="{{groupId}}">
+                <td style='width:50%'>{{title}}</td>
+                <td>{{educationForm}}</td>
+                <td>{{paymentForm}}</td>
+                <td class="table-int">{{planned}}</td>
+                <td class="table-int">{{applicationsCount}}</td>
+                <td class="table-int">{{applicationsCountForFirst}}</td>
+                <td class="table-int">{{docsCount}}</td>
+                <td class="table-int">{{docsCountForFirst}}</td>
+            </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td colspan="7">Не найдено групп, соответствующих критерию фильтра</td>
+            </tr>
+        {{/if}}
+        </tbody>
+    </table>
+</template>

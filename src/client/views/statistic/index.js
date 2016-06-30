@@ -46,7 +46,7 @@ getGroups = function() {
     _.chain(groups)
         .map(function(item) {
             if(!_showRatings) {
-                item.isActive = item.applicationsCount > 0;
+                item.isActive = item.applicationsCount > 0 && currentCampaign.get() !== 'Колледж';
             } else {
                 item.isActive = true;
             }
@@ -73,9 +73,6 @@ Template.Statistic.helpers({
         return getGroups();
     },
     showRatings: showRatings,
-    showCounters: function() {
-        return !showRatings();
-    },
     pageTitle: function() {
         if(!showRatings()) {
             return 'Статистика принятых заявлений'
@@ -83,23 +80,16 @@ Template.Statistic.helpers({
             return 'Рейтинг абитуриентов';
         }
     },
-    hasGroups: function(groups) {
-        return groups.length > 0;
-    },
     expandIfOnlyOneGroup: function(groups) {
         return groups.length === 1 ? 'active' : '';
     },
-    
-    needProgram: function() {
+    mainCAmpaign: function() {
+        var campaign = currentCampaign.get()
+        return camapign === 'Основная кампания' || campaign === 'Крым'
+    },
+    mainCampaign: function() {
         var campaign = currentCampaign.get()
         return campaign === 'Основной прием' || campaign === 'Крым'
-    }
-});
-
-Template.Statistic.events({
-    'click .data-row_active': function() {
-        Router.go('group', {groupId: this.groupId});
-        return false;
     }
 });
 
