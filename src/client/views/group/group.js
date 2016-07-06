@@ -33,7 +33,7 @@ Template.Group.helpers({
             }.bind(this));
     },
     personExamWarn: function(examType) {
-        if(examType === 'Без в/и (диплом не подтвержден)') {
+        if(examType === 'Без в/и (диплом не подтвержден ФИС)') {
             return 'warn z-depth-1 red darken-4'
         }
     },
