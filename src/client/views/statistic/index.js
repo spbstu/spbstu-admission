@@ -14,15 +14,9 @@ showRatings = function() {
 
 getGroups = function() {
     var controller = Iron.controller()
-    var filter = _.extend(groupFilter.get(), getContestGroupFilter())
-    var groupsParams = {sort: {faculty: 1, title: 1}}
     
-    var _showRatings = showRatings()
-    
-    if(!_showRatings) {
-        filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()})
-        groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}}
-    }
+    var filter = _.extend(groupFilter.get(), {admissionLevel: currentCampaign.get()})
+    var groupsParams = {sort: {faculty: 1, title: 1, planned: -1, applicationsCount: -1, docsCount: -1}}
     var faculties = _.uniq(Groups.find({}, {
         sort: {
             faculty: 1
@@ -45,11 +39,7 @@ getGroups = function() {
 
     _.chain(groups)
         .map(function(item) {
-            if(!_showRatings) {
-                item.isActive = item.applicationsCount > 0 && currentCampaign.get() !== 'Колледж';
-            } else {
-                item.isActive = true;
-            }
+            item.isActive = item.applicationsCount > 0 && currentCampaign.get() !== 'Колледж';
             return item;
         })
         .groupBy(function(item) {

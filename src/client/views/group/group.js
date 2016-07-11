@@ -19,18 +19,7 @@ Template.Group.helpers({
 
         var contestGroupId = contestGroupMap.get(currentContestGroup.get()).toString()
 
-        if(!showRatings()) {
-            return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
-        }
-        return Ratings.find({
-            groupId: params.groupId.toString(),
-            contestType: contestGroupMap.get(currentContestGroup.get()).toString()
-        }, {rating: 1})
-            .map(function(item, index) {
-                item.totalScore = sum(item.score1, item.score2, item.score3, item.additionalScore);
-
-                return item;
-            }.bind(this));
+        return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
     },
     personExamWarn: function(examType) {
         if(examType === 'Без в/и (диплом не подтвержден ФИС)') {
@@ -47,37 +36,24 @@ Template.Group.helpers({
         return Groups.findOne({groupId: params.groupId, });
     },
 
+    examName: function(group, number) {
+        return group.exams[number - 1]
+    },
+
     examCount: function(group) {
-        if (group.exam2 !== "") {
-            if (group.exam3 !== "") {
-                return 3;
-            } else {
-                return 2;
-            }
-        } else {
-            return 1
-        }
+        return group.exams.length
     },
 
-    showExam2: function(group) {
-        return group.exam2 !== "";
+    showExam: function(group, number) {
+        return group.exams[number - 1]
     },
 
-    showExam3: function(group) {
-        return group.exam3 !== "";
-    },
-
-    docType: function(docTypeId) {
-        switch (docTypeId) {
-            case "1":
-                return "Оригинал";
-            case "0":
-                return "Копия";
-        }
+    examScore: function(person, number) {
+        return person.exams[number - 1].score
     },
 
     showPriority: function() {
-        return currentContestGroup.get() === 'Общий конкурс';
+        return currentContestGroup.get() === 'Колледж';
     },
 
     showRecommendation: function(group) {

@@ -38,38 +38,40 @@
             <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
             <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
             <th data-field="docsCount" rowspan="2">Тип документа</th>
+            <th data-field="docsCount" rowspan="2">Заявление о согласии</th>
             {{#if showRecommendation group}}
             <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
             {{/if}}
         </tr>
         <tr>
-            <th class="center">{{ group.exam1 }}</th>
-            {{#if showExam2 group }}
-            <th class="center">{{ group.exam2 }}</th>
+            <th class="center">{{ examName group 1 }}</th>
+            {{#if showExam group 2 }}
+            <th class="center">{{ examName group 2 }}</th>
             {{/if}}
-            {{#if showExam3 group }}
-            <th class="center">{{ group.exam3 }}</th>
+            {{#if showExam group 3 }}
+            <th class="center">{{ examName group 3 }}</th>
             {{/if}}
         </tr>
         </thead>
         <tbody>
         {{#each persons}}
         <tr class="{{#if isFirst}}first{{/if}}" >
-            <td>{{rating}}</td>
-            <th>{{name}}</th>
+            <td>{{order}}</td>
+            <th>{{fio}}</th>
             {{#if showPriority }}
             <td class="center">{{priority}}</td>
             {{/if}}
             <td class="center">{{totalScore}}</td>
-            <td class="center">{{score1}}</td>
-            {{#if showExam2 group }}
-            <td class="center">{{score2}}</td>
+            <td class="center">{{examScore this 1}}</td>
+            {{#if showExam group 2 }}
+            <td class="center">{{examScore this 2}}</td>
             {{/if}}
-            {{#if showExam3 group }}
-            <td class="center">{{score3}}</td>
+            {{#if showExam group 3 }}
+            <td class="center">{{examScore this 3}}</td>
             {{/if}}
-            <td class="center">{{additionalScore}}</td>
-            <td>{{docType documentType}}</td>
+            <td class="center">{{personalScore}}</td>
+            <td>{{documentType}}</td>
+            <td>{{agreement}}</td>
             {{#if showRecommendation group}}
             <td><small>{{recommendation recommendationType gender}}</small></td>
             {{/if}}

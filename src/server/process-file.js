@@ -67,14 +67,8 @@ function storedHandler(fileObj, storeName) {
         case 'groupsFiles':
             startUploadProgress('groups');
             break;
-        case 'ratingGroupsFiles':
-            startUploadProgress('groups');
-            break;
         case 'abiturientsFiles':
             startUploadProgress('abiturients');
-            break;
-        case 'ratingFiles':
-            startUploadProgress('ratings');
             break;
     }
 
@@ -87,14 +81,8 @@ function storedHandler(fileObj, storeName) {
             case 'groupsFiles':
                 processGroups(data);
                 break;
-            case 'ratingGroupsFiles':
-                processRatingGroups(data);
-                break;
             case 'abiturientsFiles':
                 processAbiturients(data);
-                break;
-            case 'ratingFiles':
-                processRating(data);
                 break;
         }
     }));
@@ -179,7 +167,7 @@ function processGroups(data) {
                     // Приёмная кампания
                     admissionLevel: admissionLevel[item[7]],
                     // Экзамены
-                    exams: item[8],
+                    exams: parseExams(item[8]),
                     // План приема
                     planned: parseInt(item[9]),
                     // Количество заявлений
@@ -224,49 +212,33 @@ function processGroups(data) {
     }
 }
 
-function processRatingGroups(data) {
-    startProcessProgress('groups');
-
-    var result = Papa.parse(data, {
-            skipEmptyLines: true
-        }),
-        skipLines = 0,
-        count = result.data.length - skipLines;
-
-    if (result.errors.length === 0) {
-        Groups.remove({});
-
-        result.data
-            .slice(skipLines)
-            .map(function (item) {
-                return {
-                    faculty: item[ 3 ],                     // Факультет
-                    facultyAbbr: item[ 2 ],                 // Факультет сокращенно
-                    title: item[ 4 ],                       // Название группы
-                    groupId: item[ 0 ],                     // UID группы
-                    educationForm: item[ 5 ],               // Форма обучения
-                    program: item[ 7 ],                     // Программа
-                    paymentForm: item[ 6 ],                 // Бюджет/контракт
-                    educationLevel: item[ 1 ],              // Уровень образования
-                    educationBaseLevel: item[ 8 ],          // Базовое образование
-                    exam1: item[ 9 ],                       // Экзамен 1
-                    exam2: item[ 10 ],                      // Экзамен 2
-                    exam3: item[ 11 ],                      // Экзамен 3
-                    examExtra: item[ 12 ]                   // Доп достижения
-                }
-            })
-            .forEach(function (item, index) {
-                Groups.insert(item);
-                var progress = Math.floor((index / count) * 100);
-
-                updateProgressValue('groups', progress);
-            });
-
-        finishUploadProgress('groups');
-    } else {
-        failUploadProgress('groups');
-        console.log('Errors caused', result.errors);
+function parseExams(examsIdsStr) {
+    const exams = {
+        '1': 'Математика',
+        '2': 'Физика',
+        '3': 'История',
+        '4': 'Русский язык',
+        '5': 'Обществознание',
+        '6': 'Информатика',
+        '7': 'Рисунок, живопись и композиция',
+        '8': 'Иностранный язык',
+        '9': 'Химия',
+        '10': 'Литература',
+        '11': 'Биология',
+        '12': 'Междисциплинарный экзамен',
+        '13': 'Собеседование',
+        '14': 'Средний балл аттестата',
+        '15': 'Технология машиностроения',
+        '16': 'Основы алгоритмизации',
+        '17': 'Философия',
+        '18': 'Специальная дисциплина',
+        '19': 'Немецкий язык',
+        '20': 'Французский язык',
+        '21': 'Испанский язык',
+        '22': 'Английский язык',
+        '23': 'Математика базовая'
     }
+    return examsIdsStr.split(',').map(x => exams[x.trim()])
 }
 
 function processAbiturients(data) {
@@ -308,11 +280,11 @@ function processAbiturients(data) {
                     agreement: item[ 7 ] === '1' ? 'Да' : 'Нет',    // Заявление о согласии
                     refuse: item[ 8 ] !== '0' ? 'отказ' : '',       // Отакз в приеме документов
                     totalScore: item[ 9 ],                          // Общий балл
-                    exams: {
-                        '1': {score: item[10], status: item[11]},
-                        '2': {score: item[12], status: item[13]},
-                        '3': {score: item[14], status: item[15]}
-                    },
+                    exams: [
+                        {score: item[10], status: item[11]},
+                        {score: item[12], status: item[13]},
+                        {score: item[14], status: item[15]}
+                    ],
                     personalScore: item[ 16 ],         // Балл за индивидуальные достижения
                     hitPercent: item[ 17 ],            // Попадание в процент зачисления
                     priority: item[ 18 ],              // Приоритет
@@ -332,47 +304,6 @@ function processAbiturients(data) {
     }
 }
 
-function processRating(data) {
-    startProcessProgress('ratings');
-
-    var result = Papa.parse(data, {
-            skipEmptyLines: true
-        }),
-        skipLines = 0,
-        l = 0,
-        count = result.data.length - skipLines;
-
-
-    if (result.errors.length === 0) {
-        Ratings.remove({});
-
-        result.data.forEach(function(item, index) {
-            var progress = Math.floor((index / count) * 50);
-
-            switch (item.length) {
-                case 1:
-                    updateSiteSettings('lastUpdate', item[0]);
-                    break;
-                case 3:
-                    updateRatingScore(item);
-                    break;
-                default:
-                    updateRating(item);
-                    break;
-            }
-
-            updateProgressValue('ratings', progress);
-        });
-
-        updateGroupRatingInfo();
-
-        finishUploadProgress('ratings');
-    } else {
-        failUploadProgress('ratings');
-        console.log(result.errors);
-    }
-}
-
 function updateSiteSettings(key, value) {
     var doc = {},
         lookup = {'lastUpdate': {$exists: true}};
@@ -382,59 +313,5 @@ function updateSiteSettings(key, value) {
     SiteSettings.update(lookup, {$set: doc}, {upsert: true});
 }
 
-function updateRatingScore(dataList) {
-    var doc = {
-        limit: dataList[1],
-        semiLimit: dataList[2]
-    };
-
-    Groups.update({groupId: dataList[0]}, {$set: doc});
-}
-
-function updateRating(dataList) {
-    var doc = {
-        groupId: dataList[0],
-        rating: dataList[1],
-        name: dataList[2],
-        gender: dataList[3],
-        birthDate: dataList[4],
-        priority: dataList[5],
-        documentType: dataList[6],
-        contestType: dataList[7],
-        score1: dataList[8],
-        score2: dataList[9],
-        score3: dataList[10],
-        additionalScore: dataList[11],
-        recommendationType: dataList[12],
-        customerName: dataList[13]
-    };
-
-    Ratings.insert(doc);
-}
-
-function updateGroupRatingInfo() {
-    var count;
-
-    Groups.find({}).forEach(function(group, index, collection) {
-        var count1 = Ratings.find({groupId: group.groupId, contestType: "1"}).count(),
-            count2 = Ratings.find({groupId: group.groupId, contestType: "2"}).count(),
-            count3 = Ratings.find({groupId: group.groupId, contestType: "3"}).count(),
-            count4 = Ratings.find({groupId: group.groupId, contestType: "4"}).count(),
-            count = count || collection.count(),
-            progress = 50 + Math.floor((index / count) * 50);
-
-        Groups.update({_id: group._id}, {$set: {
-            count1: count1,
-            count2: count2,
-            count3: count3,
-            count4: count4
-        }});
-
-        updateProgressValue('ratings', progress);
-    });
-}
-
 GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));
-RatingGroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingGroupsFiles')));
 AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('abiturientsFiles')));
-RatingFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingFiles')));
