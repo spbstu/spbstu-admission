@@ -261,8 +261,8 @@ function processAbiturients(data) {
             '4': 'Без в/и (диплом не подтвержден ФИС)'
         }
         const documentType = {
-            '0': 'Оригинал',
-            '1': 'Копия'
+            '1': 'Оригинал',
+            '0': 'Копия'
         }
         
         Abiturients.remove({})
