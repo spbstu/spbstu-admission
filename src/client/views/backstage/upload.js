@@ -41,14 +41,6 @@ Template.BackstageUpload.events({
         FileUploadHandler(event, template, AbiturientsFiles);
     },
 
-    'change #rating-groups': function(event, template) {
-        FileUploadHandler(event, template, RatingGroupsFiles);
-    },
-
-    'change #rating-list': function(event, template) {
-        FileUploadHandler(event, template, RatingFiles);
-    },
-
     'change #showRatings': function(event, template) {
         updateSiteSettings('showRatings', event.target.checked);
     }
@@ -94,13 +86,11 @@ Template.BackstageUpload.helpers({
     },
     showRatingsСhecked: function() {
         var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
-
-        if (settings) {
-            if (settings['showRatings'] == true) {
-                return 'checked';
-            }
-        } else {
+        console.log(settings)
+        if (settings['showRatings']) {
             return 'checked';
+        } else {
+            return '';
         }
     }
 });

@@ -42,51 +42,13 @@
             </div>
         </li>
         <li>
-            <div class="collapsible-header">Рейтинговые списки</div>
-            <div class="collapsible-body">
-                <div class="row">
-                    <div class="file-field input-field col s8">
-                        <div class="btn">
-                            <span>Конкурсные группы</span>
-                            <input type="file" id="rating-groups" />
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
-                    <div class="col s3 offset-s1">
-                        {{# if groupsProgress }}
-                        <h5>{{ groupsProgress }}</h5>
-                        {{/ if }}
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="file-field input-field col s8">
-                        <div class="btn">
-                            <span>Рейтинговый список</span>
-                            <input type="file" id="rating-list" />
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                        </div>
-                    </div>
-                    <div class="col s3 offset-s1">
-                        {{# if ratingsProgress }}
-                        <h5>{{ ratingsProgress }}</h5>
-                        {{/ if }}
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li>
             <div class="collapsible-header">Настройки</div>
             <div class="collapsible-body">
                 <div class="row">
                     <div class="switch">
                         <label>
                             <input type="checkbox" id="showRatings"
-                                   {{showRatingsChecked}}
+                                   {{showRatingsСhecked}}
                             >
                             <span class="lever"></span>
                             Показывать рейтинги. Если выкл, то показывать списки принятых документов
