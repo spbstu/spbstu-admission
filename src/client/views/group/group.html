@@ -1,107 +1,21 @@
 <template name="Group">
-    {{#if showRatings}}
-    <div class="col s10 offset-s1 ">
-        <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-                {{#unless showRecommendation group}}
-                <p>После зачисления поступающих без вступительных испытаний и поступающих
-
-        на места в пределах квот целевого приема и особого права с <b>30.07.2015</b>
-
-        ежедневно будут обновляться конкурсные списки с выделением лиц,
-
-        поступающих в 80% для зачисления в I волне и с указанием проходного балла на
-
-        текущую дату</p>
-                {{else}}
-                В 80% конкурсных мест попадают лица,
-
-                представившие оригинал документа об образовании и набравшие {{group.limit}} баллов и выше{{#if showSemiLimit group}}, и лица,
-
-                имеющие полупроходной балл {{group.semiLimit}} и имеющие преимущество в соответствии с правилами
-
-                приема{{/if}}
-                {{/unless}}
-            </div>
-        </div>
-    </div>
-
-    <table class="rating-table data-table col s10 offset-s1 striped">
-        <thead>
-        <tr>
-            <th data-field="fullname" rowspan="2">№ п.п.</th>
-            <th data-field="fullname" rowspan="2">Фамилия Имя Отчество</th>
-            {{#if showPriority }}
-            <th data-field="docsCount" rowspan="2">Приоритет</th>
-            {{/if}}
-            <th data-field="docsCount" rowspan="2">Баллы</th>
-            <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
-            <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
-            <th data-field="docsCount" rowspan="2">Тип документа</th>
-            <th data-field="docsCount" rowspan="2">Заявление о согласии</th>
-            {{#if showRecommendation group}}
-            <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
-            {{/if}}
-        </tr>
-        <tr>
-            <th class="center">{{ examName group 1 }}</th>
-            {{#if showExam group 2 }}
-            <th class="center">{{ examName group 2 }}</th>
-            {{/if}}
-            {{#if showExam group 3 }}
-            <th class="center">{{ examName group 3 }}</th>
-            {{/if}}
-        </tr>
-        </thead>
-        <tbody>
-        {{#each persons}}
-        <tr class="{{#if isFirst}}first{{/if}}" >
-            <td>{{order}}</td>
-            <th>{{fio}}</th>
-            {{#if showPriority }}
-            <td class="center">{{priority}}</td>
-            {{/if}}
-            <td class="center">{{totalScore}}</td>
-            <td class="center">{{examScore this 1}}</td>
-            {{#if showExam group 2 }}
-            <td class="center">{{examScore this 2}}</td>
-            {{/if}}
-            {{#if showExam group 3 }}
-            <td class="center">{{examScore this 3}}</td>
-            {{/if}}
-            <td class="center">{{personalScore}}</td>
-            <td>{{documentType}}</td>
-            <td>{{agreement}}</td>
-            {{#if showRecommendation group}}
-            <td><small>{{recommendation recommendationType gender}}</small></td>
-            {{/if}}
-        </tr>
-        {{else}}
-        <tr>
-            <td colspan="9">Записей не найдено</td>
-        </tr>
-        {{/each}}
-        </tbody>
-    </table>
-
     {{#contentFor "title"}}
     <h6 class="group-title">
         {{group.faculty}}, {{group.title}}<br>
         {{group.educationForm}}, {{group.paymentForm}}
     </h6>
     {{/contentFor}}
+    {{#if showRatings group}}
+        {{#if phd}}
+            {{> RatingPhdGroup persons=persons}}
+        {{else}}
+            {{> RatingMainCampaignGroup persons=persons}}
+        {{/if}}
     {{else}}
         {{#if phd}}
             {{> PhdGroup persons=persons}}
         {{else}}
             {{> MainCampaignGroup persons=persons}}
         {{/if}}
-        
-        {{#contentFor "title"}}
-        <h6 class="group-title">
-            {{group.faculty}}, {{group.title}}<br>
-            {{group.educationForm}}, {{group.paymentForm}}
-        </h6>
-        {{/contentFor}}
     {{/if}}
 </template>

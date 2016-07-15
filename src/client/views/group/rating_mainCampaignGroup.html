@@ -1,0 +1,64 @@
+<template name='RatingMainCampaignGroup'>
+<table class="rating-table data-table col s10 offset-s1 striped">
+    <thead>
+    <tr>
+        <th data-field="fullname" rowspan="2">№ п.п.</th>
+        <th data-field="fullname" rowspan="2">Фамилия Имя Отчество</th>
+        {{#if showPriority }}
+        <th data-field="docsCount" rowspan="2">Приоритет</th>
+        {{/if}}
+        <th data-field="docsCount" rowspan="2">Баллы</th>
+        <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
+        <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
+        <th data-field="docsCount" rowspan="2">Тип документа</th>
+        <th data-field="docsCount" rowspan="2">Заявление о согласии</th>
+        {{#if showRecommendation group}}
+        <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
+        {{/if}}
+    </tr>
+    <tr>
+        <th class="center">{{ examName group 1 }}</th>
+        {{#if showExam group 2 }}
+        <th class="center">{{ examName group 2 }}</th>
+        {{/if}}
+        {{#if showExam group 3 }}
+        <th class="center">{{ examName group 3 }}</th>
+        {{/if}}
+    </tr>
+    </thead>
+    <tbody>
+    {{#each persons}}
+    <tr class="{{#if isFirst}}first{{/if}}" >
+        <td>{{order}}</td>
+        <th>{{fio}}</th>
+        {{#if showPriority }}
+        <td class="center">{{priority}}</td>
+        {{/if}}
+        
+        {{#if haveExams examType}}
+        <td class="center">{{totalScore}}</td>
+        <td class="center"><span class='{{examClass this 1}}'>{{examScore this 1}}</span></td>
+        {{#if showExam group 2 }}
+        <td class="center"><span class='{{examClass this 2}}'>{{examScore this 2}}</span></td>
+        {{/if}}
+        {{#if showExam group 3 }}
+        <td class="center"><span class='{{examClass this 3}}'>{{examScore this 3}}</span></td>
+        {{/if}}
+        <td class="center">{{personalScore}}</td>
+        {{else}}
+        <td class="center" colspan='{{examCount group 2}}'>без в/и</td>
+        {{/if}}
+        <td>{{documentType}}</td>
+        <td>{{agreement}}</td>
+        {{#if showRecommendation group}}
+        <td><small>{{recommendation recommendationType gender}}</small></td>
+        {{/if}}
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="9">Записей не найдено</td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>
+</template>

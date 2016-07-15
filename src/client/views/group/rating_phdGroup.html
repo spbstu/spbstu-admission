@@ -1,0 +1,47 @@
+<template name='RatingPhdGroup'>
+    <table class="rating-table data-table col s10 offset-s1 striped">
+        <thead>
+        <tr>
+            <th data-field="num" rowspan="2">№</th>
+            <th data-field="fullname" rowspan="2">ФИО</th>
+            <th data-field="docsCount" rowspan="2">Приоритет</th>
+            <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
+            <th data-field="docsCount" rowspan="2">Тип документа</th>
+        </tr>
+        <tr>
+            <th class="center">{{ examName group 1 }}</th>
+            {{#if showExam group 2 }}
+            <th class="center">{{ examName group 2 }}</th>
+            {{/if}}
+            {{#if showExam group 3 }}
+            <th class="center">{{ examName group 3 }}</th>
+            {{/if}}
+        </tr>
+        </thead>
+        <tbody>
+        {{#each persons}}
+        <tr class="{{#if isFirst}}first{{/if}}" >
+            <td>{{order}}</td>
+            <td>{{fio}}</td>
+            <td>{{proirity}}</td>
+            {{#if haveExams examType}}
+                <td class="center"><span class='{{examClass this 1}}'>{{examScore this 1}}</span></td>
+                {{#if showExam group 2 }}
+                    <td class="center"><span class='{{examClass this 2}}'>{{examScore this 2}}</span></td>
+                {{/if}}
+                {{#if showExam group 3 }}
+                    <td class="center"><span class='{{examClass this 3}}'>{{examScore this 3}}</span></td>
+                {{/if}}
+            {{else}}
+                <td class="center" colspan='{{examCount group}}'>без в/и</td>
+            {{/if}}
+            <td>{{documentType}}</td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="6">Записей не найдено</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>
