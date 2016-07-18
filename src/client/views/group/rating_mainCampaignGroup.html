@@ -5,7 +5,7 @@
         <th data-field="fullname" rowspan="2">№ п.п.</th>
         <th data-field="fullname" rowspan="2">Фамилия Имя Отчество</th>
         {{#if showPriority }}
-        <th data-field="docsCount" rowspan="2">Приоритет</th>
+            <th data-field="docsCount" rowspan="2">Приоритет</th>
         {{/if}}
         <th data-field="docsCount" rowspan='2'>Сдаёт вступительные испытания</th>
         <th data-field="docsCount" rowspan="2">Баллы</th>
@@ -13,8 +13,8 @@
         <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
         <th data-field="docsCount" rowspan="2">Тип документа</th>
         <th data-field="docsCount" rowspan="2">Заявление о согласии</th>
-        {{#if showRecommendation group}}
-        <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
+        {{#if showRating group}}
+            <th data-field="docsCount" rowspan="2">Попадание в процент зачисления</th>
         {{/if}}
     </tr>
     <tr>
@@ -55,8 +55,8 @@
         {{/if}}
         <td>{{documentType}}</td>
         <td>{{agreement}}</td>
-        {{#if showRecommendation group}}
-            <td><small>{{recommendation recommendationType gender}}</small></td>
+        {{#if showRating group}}
+            <td>{{hitPercent}}</td>
         {{/if}}
     </tr>
     {{else}}

@@ -27,4 +27,7 @@ Template.Group.helpers({
         return currentCampaign.get() === 'Аспирантура'
     },
     
+    showDescText: function(group) {
+        return group.viewRating === '1' && group.descText !== ''
+    }
 });

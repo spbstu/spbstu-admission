@@ -47,49 +47,10 @@ Template.RatingMainCampaignGroup.helpers({
         return examType !== 'без в/и' && examType !== 'Без в/и (диплом не подтвержден ФИС)'
     },
 
-    showRecommendation: function(group) {
-        /*var exceptGroups = [520, 521];
-
-        return group.paymentForm.toLowerCase() == 'бюджет'
-            || exceptGroups.indexOf(Number(group.groupId)) !== -1
-            || Date.now() > new Date(2016, 7, 30); // Todo: Replace with SiteSettings property*/
-        return false
-    },
-
     showSemiLimit: function(group) {
         return group.semiLimit > 0;
     },
 
-    recommendation: function(recommendationType, gender) {
-        switch (recommendationType) {
-            case '0':
-                return '';
-                break;
-            case '1':
-                return 'да';
-                break;
-            case '2':
-                return 'да, полупроходной балл';
-                break;
-            case '3':
-                return 'проходит по более высокому приоритету';
-                break;
-            case '4':
-                if (gender === 'ж') {
-                    return 'зачислена по более низкому приоритету';
-                } else {
-                    return 'зачислен по более низкому приоритету';
-                }
-                break;
-            case '5':
-                return '';
-                break;
-            case '6':
-                return 'отказ от зачисления';
-                break;
-        }
-    },
-    
     showRating: function(group) {
         return group.viewRating === '1' 
     },
