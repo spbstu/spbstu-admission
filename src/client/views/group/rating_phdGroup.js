@@ -36,4 +36,8 @@ Template.RatingPhdGroup.helpers({
     haveExams: function(examType) {
         return examType !== 'без в/и' && examType !== 'Без в/и (диплом не подтвержден ФИС)'
     },
+    
+    showRating: function(group) {
+        return group.viewRating === '1' 
+    },
 });

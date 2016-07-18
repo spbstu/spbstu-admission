@@ -21,7 +21,11 @@
         <tbody>
         {{#each persons}}
         <tr class="{{#if isFirst}}first{{/if}}" >
-            <td>{{order}}</td>
+            {{#if showRating group}}
+                <td>{{rating}}</td>
+            {{else}}
+                <td>{{order}}</td>
+            {{/if}}
             <td>{{fio}}</td>
             <td>{{proirity}}</td>
             {{#if haveExams examType}}

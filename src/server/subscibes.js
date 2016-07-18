@@ -10,6 +10,10 @@ Meteor.publish('abiturients', function(groupId) {
     return Abiturients.find({groupId: groupId});
 });
 
+Meteor.publish('ratedAbiturients', function(groupId) {
+    return Abiturients.find({groupId: groupId}, {sort: {rating: 1}});
+});
+
 Meteor.publish('uploadStatus', function() {
     return uploadStatus.find({});
 });

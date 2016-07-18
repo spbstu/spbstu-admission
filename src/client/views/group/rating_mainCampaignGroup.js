@@ -89,5 +89,8 @@ Template.RatingMainCampaignGroup.helpers({
                 break;
         }
     },
-
+    
+    showRating: function(group) {
+        return group.viewRating === '1' 
+    },
 });

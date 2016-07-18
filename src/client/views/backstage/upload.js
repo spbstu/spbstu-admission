@@ -40,6 +40,9 @@ Template.BackstageUpload.events({
     'change #abiturients': function(event, template) {
         FileUploadHandler(event, template, AbiturientsFiles);
     },
+    'change #ratings': function(event, template) {
+        FileUploadHandler(event, template, RatingsFiles);
+    },
 
     'change #showRatings': function(event, template) {
         updateSiteSettings('showRatings', event.target.checked);
@@ -86,7 +89,6 @@ Template.BackstageUpload.helpers({
     },
     showRatingsСhecked: function() {
         var settings = SiteSettings.findOne({'showRatings': {$exists: true}});
-        console.log(settings)
         if (settings['showRatings']) {
             return 'checked';
         } else {

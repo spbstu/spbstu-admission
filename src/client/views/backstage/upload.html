@@ -39,6 +39,22 @@
                         {{/ if }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="file-field input-field col s8">
+                        <div class="btn">
+                            <span>Рейтинговый список</span>
+                            <input type="file" id="ratings" />
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <div class="col s3 offset-s1">
+                        {{# if ratingsProgress }}
+                        <h5>{{ ratingsProgress }}</h5>
+                        {{/ if }}
+                    </div>
+                </div>
             </div>
         </li>
         <li>

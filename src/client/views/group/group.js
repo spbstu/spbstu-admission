@@ -4,8 +4,12 @@ Template.Group.helpers({
         var params = controller.getParams();
 
         var contestGroupId = contestGroupMap.get(currentContestGroup.get()).toString()
-
-        return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
+        var group = Groups.findOne({groupId: params.groupId})
+        if(group.viewRating === '1') {
+            return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { rating: 1 }});
+        } else {
+            return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
+        }
     },
     
     group: function() {
@@ -15,11 +19,12 @@ Template.Group.helpers({
         return Groups.findOne({groupId: params.groupId, });
     },
     
-    showRatings: function(group) {
-        return group.status === '2'
+    showRatingOrExam: function(group) {
+        return group.viewRating === '1' || group.status === '2'
     },
     
     phd: function() {
         return currentCampaign.get() === 'Аспирантура'
-    }
+    },
+    
 });

@@ -42,6 +42,9 @@ GroupsFiles = new FS.Collection("groupsFiles", {
 AbiturientsFiles = new FS.Collection("abiturientsFiles", {
     stores: [FSStore]
 });
+RatingsFiles = new FS.Collection("ratingsFiles", {
+    stores: [FSStore]
+});
 
 uploadStatus.find({}).forEach(function(doc) {
     uploadStatus.update({_id: doc._id}, {$set: {value: false}});

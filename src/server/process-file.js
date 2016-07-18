@@ -70,6 +70,9 @@ function storedHandler(fileObj, storeName) {
         case 'abiturientsFiles':
             startUploadProgress('abiturients');
             break;
+        case 'ratingsFiles':
+            startUploadProgress('ratings');
+            break;
     }
 
     readStream.on('data', Meteor.bindEnvironment(function (chunk) {
@@ -83,6 +86,9 @@ function storedHandler(fileObj, storeName) {
                 break;
             case 'abiturientsFiles':
                 processAbiturients(data);
+                break;
+            case 'ratingsFiles':
+                processRatings(data);
                 break;
         }
     }));
@@ -304,6 +310,48 @@ function processAbiturients(data) {
     }
 }
 
+function processRatings(data) {
+    startProcessProgress('ratings');
+
+    var result = Papa.parse(data, {
+            delimiter: '|',
+            skipEmptyLines: true
+        })
+    var skipLines = 1
+    var count = result.data.length - skipLines
+
+
+    if (result.errors.length === 0) {
+        // TODO: Обработка ошибок. Наверно что-то типа промисов
+        result.data
+            .slice(skipLines)
+            .map(function (item) {
+                return {
+                    groupId: item[ 0 ],                             // UID группы
+                    order: parseInt(item[ 1 ]),                     // Номер по порядку внутри группы
+                    category: item[ 2 ],                            // Категория поступления
+                    fio: item[ 3 ],                                 // Фамилия Имя Отчество
+                }
+            })
+            .forEach(function (item, index) {
+                Abiturients.update({
+                    groupId: item.groupId,
+                    fio: item.fio
+                }, {
+                    $set: {rating: item.order}
+                });
+                var progress = Math.floor((index / count) * 100);
+                updateProgressValue('ratings', progress);
+            });
+
+        finishUploadProgress('ratings');
+    } else {
+        failUploadProgress('ratings');
+        console.log(result.errors);
+    }
+}
+
+
 function updateSiteSettings(key, value) {
     var doc = {},
         lookup = {'lastUpdate': {$exists: true}};
@@ -315,3 +363,4 @@ function updateSiteSettings(key, value) {
 
 GroupsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('groupsFiles')));
 AbiturientsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('abiturientsFiles')));
+RatingsFiles.on('stored', Meteor.bindEnvironment(storedHandlerFactory('ratingsFiles')));

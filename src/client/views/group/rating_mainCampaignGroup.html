@@ -7,6 +7,7 @@
         {{#if showPriority }}
         <th data-field="docsCount" rowspan="2">Приоритет</th>
         {{/if}}
+        <th data-field="docsCount" rowspan='2'>Сдаёт вступительные испытания</th>
         <th data-field="docsCount" rowspan="2">Баллы</th>
         <th data-field="docsCount" colspan="{{examCount group}}" class="center">Баллы по предметам</th>
         <th data-field="docsCount" rowspan="2">Баллы за инд. достижения</th>
@@ -29,29 +30,33 @@
     <tbody>
     {{#each persons}}
     <tr class="{{#if isFirst}}first{{/if}}" >
-        <td>{{order}}</td>
+        {{#if showRating group}}
+            <td>{{rating}}</td>
+        {{else}}
+            <td>{{order}}</td>
+        {{/if}}
         <th>{{fio}}</th>
         {{#if showPriority }}
-        <td class="center">{{priority}}</td>
+            <td class="center">{{priority}}</td>
         {{/if}}
-        
+        <td><span class='{{personExamWarn examType}}'>{{examType}}</span></td>
         {{#if haveExams examType}}
-        <td class="center">{{totalScore}}</td>
-        <td class="center"><span class='{{examClass this 1}}'>{{examScore this 1}}</span></td>
-        {{#if showExam group 2 }}
-        <td class="center"><span class='{{examClass this 2}}'>{{examScore this 2}}</span></td>
-        {{/if}}
-        {{#if showExam group 3 }}
-        <td class="center"><span class='{{examClass this 3}}'>{{examScore this 3}}</span></td>
-        {{/if}}
-        <td class="center">{{personalScore}}</td>
+            <td class="center">{{totalScore}}</td>
+            <td class="center"><span class='{{examClass this 1}}'>{{examScore this 1}}</span></td>
+            {{#if showExam group 2 }}
+                <td class="center"><span class='{{examClass this 2}}'>{{examScore this 2}}</span></td>
+            {{/if}}
+            {{#if showExam group 3 }}
+                <td class="center"><span class='{{examClass this 3}}'>{{examScore this 3}}</span></td>
+            {{/if}}
+            <td class="center">{{personalScore}}</td>
         {{else}}
-        <td class="center" colspan='{{examCount group 2}}'>без в/и</td>
+            <td class="center" colspan='{{examCount group 2}}'>без в/и</td>
         {{/if}}
         <td>{{documentType}}</td>
         <td>{{agreement}}</td>
         {{#if showRecommendation group}}
-        <td><small>{{recommendation recommendationType gender}}</small></td>
+            <td><small>{{recommendation recommendationType gender}}</small></td>
         {{/if}}
     </tr>
     {{else}}
