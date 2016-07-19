@@ -39,8 +39,9 @@
         {{#if showPriority }}
             <td class="center">{{priority}}</td>
         {{/if}}
-        <td><span class='{{personExamWarn examType}}'>{{examType}}</span></td>
+        
         {{#if haveExams examType}}
+            <td><span class='{{personExamWarn examType}}'>{{examType}}</span></td>
             <td class="center">{{totalScore}}</td>
             <td class="center"><span class='{{examClass this 1}}'>{{examScore this 1}}</span></td>
             {{#if showExam group 2 }}
@@ -51,8 +52,9 @@
             {{/if}}
             <td class="center">{{personalScore}}</td>
         {{else}}
-            <td class="center" colspan='{{examCount group 2}}'>без вступительных испытаний</td>
+            <td class="center" colspan='{{examCount group 3}}'>без вступительных испытаний</td>
         {{/if}}
+        
         <td>{{documentType}}</td>
         <td>{{agreement}}</td>
         {{#if showRating group}}

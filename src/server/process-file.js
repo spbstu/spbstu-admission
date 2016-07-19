@@ -285,7 +285,7 @@ function processAbiturients(data) {
                     documentType: documentType[ item[ 6 ] ],        // Тип документа (Оригинал/Копия)
                     agreement: item[ 7 ] === '1' ? 'Да' : 'Нет',    // Заявление о согласии
                     refuse: item[ 8 ] !== '0' ? 'отказ' : '',       // Отакз в приеме документов
-                    totalScore: item[ 9 ],                          // Общий балл
+                    totalScore: item[ 9 ] === '0' ? '' : item[ 9 ], // Общий балл
                     exams: [
                         {score: item[10], status: item[11]},
                         {score: item[12], status: item[13]},
