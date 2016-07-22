@@ -6,7 +6,7 @@ Template.Group.helpers({
         var contestGroupId = contestGroupMap.get(currentContestGroup.get()).toString()
         var group = Groups.findOne({groupId: params.groupId})
         if(group.viewRating === '1') {
-            return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { rating: 1 }});
+            return Abiturients.find({ groupId: params.groupId, category: contestGroupId, rating: {$exists: true}}, {sort: { rating: 1 }});
         } else {
             return Abiturients.find({ groupId: params.groupId, category: contestGroupId}, {sort: { order: 1 }});
         }

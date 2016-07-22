@@ -329,8 +329,8 @@ function processRatings(data) {
                 return {
                     groupId: item[ 0 ],                             // UID группы
                     order: parseInt(item[ 1 ]),                     // Номер по порядку внутри группы
-                    category: item[ 2 ],                            // Категория поступления
                     fio: item[ 3 ],                                 // Фамилия Имя Отчество
+                    hitPercent: item [ 17 ]
                 }
             })
             .forEach(function (item, index) {
@@ -338,7 +338,10 @@ function processRatings(data) {
                     groupId: item.groupId,
                     fio: item.fio
                 }, {
-                    $set: {rating: item.order}
+                    $set: {
+                        rating: item.order,
+                        hitPercent: item.hitPercent
+                    }
                 });
                 var progress = Math.floor((index / count) * 100);
                 updateProgressValue('ratings', progress);
