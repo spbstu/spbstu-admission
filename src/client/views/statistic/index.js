@@ -63,13 +63,6 @@ Template.Statistic.helpers({
         return getGroups();
     },
     showRatings: showRatings,
-    pageTitle: function() {
-        if(!showRatings()) {
-            return 'Статистика принятых заявлений'
-        } else {
-            return 'Рейтинг абитуриентов';
-        }
-    },
     expandIfOnlyOneGroup: function(groups) {
         return groups.length === 1 ? 'active' : '';
     },
