@@ -1,5 +1,6 @@
 Groups = new Mongo.Collection('groups');
 Abiturients = new Mongo.Collection('abiturients');
+Ratings = new Mongo.Collection('ratings');
 
 uploadStatus = new Mongo.Collection('uploadStatus');
 SiteSettings = new Mongo.Collection('siteSettings');
@@ -27,6 +28,9 @@ Groups.deny(denyBase);
 
 Abiturients.allow(allowBase);
 Abiturients.deny(denyBase);
+
+Ratings.allow(allowBase);
+Ratings.deny(denyBase);
 
 uploadStatus.deny(denyBase);
 uploadStatus.allow(allowBase);

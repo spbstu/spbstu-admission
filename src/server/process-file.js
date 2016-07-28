@@ -320,33 +320,50 @@ function processRatings(data) {
     var skipLines = 1
     var count = result.data.length - skipLines
 
-
     if (result.errors.length === 0) {
-        // TODO: Обработка ошибок. Наверно что-то типа промисов
+        const examType = {
+            '1': 'без в/и',
+            '2': 'в/и в СПбПУ',
+            '3': 'ЕГЭ',
+            '4': 'Без в/и (диплом не подтвержден ФИС)'
+        }
+        const documentType = {
+            '1': 'Оригинал',
+            '0': 'Копия'
+        }
+        
+        Ratings.remove({})
         result.data
             .slice(skipLines)
             .map(function (item) {
                 return {
                     groupId: item[ 0 ],                             // UID группы
-                    order: parseInt(item[ 1 ]),                     // Номер по порядку внутри группы
+                    rating: parseInt(item[ 1 ]),                    // Рейтинг внутри группы
+                    category: item[ 2 ],                            // Категория поступления
                     fio: item[ 3 ],                                 // Фамилия Имя Отчество
-                    hitPercent: item [ 17 ]
+                    examType: examType[ item[ 4 ] ],                // сдает вступительные испытания
+                    birthDate: item[ 5 ],                           // Дата рождения
+                    documentType: documentType[ item[ 6 ] ],        // Тип документа (Оригинал/Копия)
+                    agreement: item[ 7 ] === '1' ? 'Да' : 'Нет',    // Заявление о согласии
+                    refuse: item[ 8 ] !== '0' ? 'отказ' : '',       // Отакз в приеме документов
+                    totalScore: item[ 9 ] === '0' ? '' : item[ 9 ], // Общий балл
+                    exams: [
+                        {score: item[10], status: item[11]},
+                        {score: item[12], status: item[13]},
+                        {score: item[14], status: item[15]}
+                    ],
+                    personalScore: item[ 16 ],         // Балл за индивидуальные достижения
+                    hitPercent: item[ 17 ],            // Попадание в процент зачисления
+                    priority: item[ 18 ],              // Приоритет
+                    avgScore: item[ 19 ],              // Средний балл по профильному предмету
                 }
             })
             .forEach(function (item, index) {
-                Abiturients.update({
-                    groupId: item.groupId,
-                    fio: item.fio
-                }, {
-                    $set: {
-                        rating: item.order,
-                        hitPercent: item.hitPercent
-                    }
-                });
+                Ratings.insert(item);
                 var progress = Math.floor((index / count) * 100);
                 updateProgressValue('ratings', progress);
             });
-
+            
         finishUploadProgress('ratings');
     } else {
         failUploadProgress('ratings');

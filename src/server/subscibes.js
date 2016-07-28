@@ -10,8 +10,8 @@ Meteor.publish('abiturients', function(groupId) {
     return Abiturients.find({groupId: groupId});
 });
 
-Meteor.publish('ratedAbiturients', function(groupId) {
-    return Abiturients.find({groupId: groupId}, {sort: {rating: 1}});
+Meteor.publish('ratings', function(groupId) {
+    return Ratings.find({groupId: groupId});
 });
 
 Meteor.publish('uploadStatus', function() {
