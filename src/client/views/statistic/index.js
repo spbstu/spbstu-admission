@@ -68,11 +68,11 @@ Template.Statistic.helpers({
     },
     mainCAmpaign: function() {
         var campaign = currentCampaign.get()
-        return camapign === 'Основная кампания' || campaign === 'Крым'
+        return camapign === 'Основная кампания'
     },
     mainCampaign: function() {
         var campaign = currentCampaign.get()
-        return campaign === 'Основной прием' || campaign === 'Крым'
+        return campaign === 'Основной прием'
     }
 });
 
