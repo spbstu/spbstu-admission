@@ -13,7 +13,7 @@ Template.MainCampaign.helpers({
     },
     needProgram: function() {
         var campaign = currentCampaign.get()
-        return campaign === 'Основной прием' || campaign === 'Крым'
+        return campaign === 'Основной прием'
     }
 });
 
