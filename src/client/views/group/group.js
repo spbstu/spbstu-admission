@@ -30,6 +30,6 @@ Template.Group.helpers({
     showDescText: function(group) {
         return group.viewRating === '1' && group.descText !== '' &&
             currentContestGroup.get() === 'Общий конкурс' &&
-            (currentCampaign.get() === 'Основной прием' || currentCampaign.get() === 'Крым')
+            currentCampaign.get() === 'Основной прием'
     }
 });
