@@ -197,9 +197,9 @@ function processGroups(data) {
                     // Идентификатор группы направлений
                     specGroupId: item[19],
                     // Количество оригиналов по первому приоритету (для аспирантуры и коллежда)
-                    docsCountForFirst: parseInt(item[20]),
+                    docsCountForFirst: parseInt(item[22]),
                     // Количество заявлений по первому приоритету (для аспирантуры и коллежда)
-                    applicationsCountForFirst: parseInt(item[21]),
+                    applicationsCountForFirst: parseInt(item[23]),
                     // Состояние списка подавших документы ( состояние1 или состояние2 - с баллами)
                     status: item[22]
                 }
