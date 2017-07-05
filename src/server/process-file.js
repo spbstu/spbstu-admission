@@ -150,10 +150,10 @@ function processGroups(data) {
             '4': 'Аспирантура'
         }
         
-        var records = result.data
+        result.data
             .slice(skipLines)
             .map(function (item) {
-                var fcl = faculty[item[1]] || admissionLevel[item[7]]
+                var fcl = faculty[item[1]] || admissionLevel[item[7]];
                 if(!faculty) {}
                 return {
                     // UID конкурсной группы
@@ -204,13 +204,13 @@ function processGroups(data) {
                     status: item[22]
                 }
             })
-            /*.forEach(function (item, index) {
+            .forEach(function (item, index) {
                 Groups.insert(item);
                 var progress = Math.floor((index / count) * 100);
 
                 updateProgressValue('groups', progress);
-            });*/
-        Groups.rawCollection().insert(records, null, function() {})
+            });
+            
         finishUploadProgress('groups');
     } else {
         failUploadProgress('groups');
@@ -264,7 +264,7 @@ function processAbiturients(data) {
             '1': 'без в/и',
             '2': 'в/и в СПбПУ',
             '3': 'ЕГЭ',
-            '4': 'Без в/и (диплом не подтвержден ФИС)'
+            '4': 'без в/и*'
         }
         const documentType = {
             '1': 'Оригинал',
@@ -272,7 +272,7 @@ function processAbiturients(data) {
         }
         
         Abiturients.remove({})
-        var records = result.data
+        result.data
             .slice(skipLines)
             .map(function (item) {
                 return {
@@ -297,12 +297,12 @@ function processAbiturients(data) {
                     avgScore: item[ 19 ],              // Средний балл по профильному предмету
                 }
             })
-            /*.forEach(function (item, index) {
+            .forEach(function (item, index) {
                 Abiturients.insert(item);
                 var progress = Math.floor((index / count) * 100);
                 updateProgressValue('abiturients', progress);
-            });*/
-        Abiturients.rawCollection().insert(records, null, function() {})
+            });
+
         finishUploadProgress('abiturients');
     } else {
         failUploadProgress('abiturients');
@@ -325,7 +325,7 @@ function processRatings(data) {
             '1': 'без в/и',
             '2': 'в/и в СПбПУ',
             '3': 'ЕГЭ',
-            '4': 'Без в/и (диплом не подтвержден ФИС)'
+            '4': 'без в/и*'
         }
         const documentType = {
             '1': 'Оригинал',
@@ -333,7 +333,7 @@ function processRatings(data) {
         }
         
         Ratings.remove({})
-        var records = result.data
+        result.data
             .slice(skipLines)
             .map(function (item) {
                 return {
@@ -358,14 +358,12 @@ function processRatings(data) {
                     avgScore: item[ 19 ],              // Средний балл по профильному предмету
                 }
             })
-            /*.forEach(function (item, index) {
-                Ratings.rawCollection.insert()
+            .forEach(function (item, index) {
                 Ratings.insert(item);
                 var progress = Math.floor((index / count) * 100);
                 updateProgressValue('ratings', progress);
-            });*/
-        Ratings.rawCollection().insert(records, null, function() {})
-        
+            });
+            
         finishUploadProgress('ratings');
     } else {
         failUploadProgress('ratings');
