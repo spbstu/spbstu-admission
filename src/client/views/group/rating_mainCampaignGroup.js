@@ -44,7 +44,8 @@ Template.RatingMainCampaignGroup.helpers({
     },
 
     haveExams: function(examType) {
-        return examType !== 'без в/и' && examType !== 'без в/и*'
+        return examType !== 'без в/и' 
+        //&& examType !== 'без в/и*'
     },
 
     showSemiLimit: function(group) {
