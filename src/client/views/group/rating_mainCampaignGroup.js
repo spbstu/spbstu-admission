@@ -44,7 +44,7 @@ Template.RatingMainCampaignGroup.helpers({
     },
 
     haveExams: function(examType) {
-        return examType !== 'без в/и' && examType !== 'Без в/и (диплом не подтвержден ФИС)'
+        return examType !== 'без в/и' && examType !== 'без в/и*'
     },
 
     showSemiLimit: function(group) {
