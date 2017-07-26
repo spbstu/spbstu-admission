@@ -292,7 +292,7 @@ function processAbiturients(data) {
                         {score: item[14], status: item[15]}
                     ],
                     personalScore: item[ 16 ],         // Балл за индивидуальные достижения
-                    hitPercent: item[ 17 ],            // Попадание в процент зачисления
+                    //hitPercent: item[ 17 ],            // Попадание в процент зачисления
                     priority: item[ 18 ],              // Приоритет
                     avgScore: item[ 19 ],              // Средний балл по профильному предмету
                 }
@@ -353,7 +353,7 @@ function processRatings(data) {
                         {score: item[14], status: item[15]}
                     ],
                     personalScore: item[ 16 ],         // Балл за индивидуальные достижения
-                    hitPercent: item[ 17 ],            // Попадание в процент зачисления
+                    //hitPercent: item[ 17 ],            // Попадание в процент зачисления
                     priority: item[ 18 ],              // Приоритет
                     avgScore: item[ 19 ],              // Средний балл по профильному предмету
                 }
