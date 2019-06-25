@@ -68,7 +68,7 @@ Template.Statistic.helpers({
     },
     mainCAmpaign: function() {
         var campaign = currentCampaign.get()
-        return camapign === 'Основная кампания' 
+        return camapign === 'Основная кампания'
     },
     mainCampaign: function() {
         var campaign = currentCampaign.get()
