@@ -37,3 +37,4 @@ standard-minifier-js
 gbhrdt:iconv-lite
 ecmascript
 momentjs:moment
+johdirr:meteor-git-rev

@@ -7,5 +7,9 @@ Template.MainLayout.helpers({
     
     showCampaigns: function() {
         return titleFilter.get() === 'campaigns'
+    },
+
+    year: function () {
+        return new Date().getFullYear();
     }
 });
